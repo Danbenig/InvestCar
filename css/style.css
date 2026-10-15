@@ -825,17 +825,26 @@ button {
 }
 
 /* Responsividade do Menu */
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   .nav {
-    padding: 25px clamp(16px, 4vw, 30px) 25px;
-    align-items: flex-end;
+    /* Alinhamento horizontal e vertical 100% idêntico à navbar flutuante */
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: clamp(20px, 6vw, 370px);
+    padding-right: clamp(20px, 6vw, 370px);
+    align-items: flex-start; /* Mantém o topo rigidamente alinhado na mesma altura da navbar (top: 25px) */
+    justify-content: flex-end;
   }
   
   .nav-panels-container {
+    width: 100%;
     max-width: 100%;
-    align-items: flex-end;
-    max-height: calc(100vh - 50px);
+    align-items: stretch;
     height: calc(100vh - 50px);
+    height: calc(100dvh - 50px);
+    max-height: calc(100dvh - 50px);
+    gap: 10px;
+    overflow: hidden;
   }
 
   .btn-menu-close {
@@ -850,26 +859,53 @@ button {
     height: 44px;
   }
 
+  .nav-top {
+    padding: 16px 22px 14px;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .nav-link {
-    font-size: 1rem;
-    padding: 6px 8px;
+    font-size: 0.98rem;
+    padding: 5px 8px;
   }
 
   .nav-middle {
-    padding: 16px 18px;
+    padding: 14px 18px;
+    flex-shrink: 0;
+  }
+
+  .nav-middle-actions {
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  .nav-btn-contact {
+    padding: 6px 14px;
+    font-size: 0.74rem;
   }
 
   .nav-bottom {
-    padding: 14px 18px;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 12px 18px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-shrink: 0;
   }
 }
 
 @media (max-width: 480px) {
+  .nav-panels-container {
+    gap: 8px;
+  }
+
   .btn-menu-close {
     top: 25px;
-    right: 20px;
+    right: 28px; /* Alinhado exatamente aos 28px de padding da navbar-card */
     width: 40px;
     height: 40px;
   }
@@ -877,6 +913,55 @@ button {
   .nav-close-spacer {
     width: 40px;
     height: 40px;
+  }
+
+  .nav-top {
+    padding: 14px 16px 12px;
+  }
+
+  .nav-link {
+    font-size: 0.92rem;
+    padding: 4px 6px;
+  }
+
+  .nav-middle {
+    padding: 12px 14px;
+  }
+
+  .nav-middle-badge {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-middle-badge svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-middle-title {
+    font-size: 0.95rem;
+  }
+
+  .nav-middle-desc {
+    font-size: 0.72rem;
+  }
+
+  .nav-btn-contact {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+  }
+
+  .nav-bottom {
+    padding: 10px 14px;
+  }
+
+  .nav-main-site-link {
+    padding: 5px 10px;
+    gap: 6px;
+  }
+
+  .nav-main-site-url {
+    font-size: 0.72rem;
   }
 }
 
