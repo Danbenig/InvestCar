@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invest Car | Ativos Automotivos de Alta Performance</title>
+  <meta name="description" content="Plataforma de investimento em supercarros e frotas corporativas de alto rendimento.">
+  
+  <!-- Tipografia Local Obrigatória (100% offline via @font-face, sem fontes externas) -->
+  <link rel="stylesheet" href="css/fonts.css">
+  
+  <!-- Estilos Gerais e do Layout -->
+  <link rel="stylesheet" href="css/style.css?v=20261015c">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       BACKGROUND ANIMADO: GLASSMORPHIIC BLOBS (CANVAS FULLSCREEN)
+       - Gradientes radiais orgânicos flutuando e brilhando dinamicamente
+       ========================================================================== -->
+  <canvas id="blobsCanvas" class="glassmorphic-blobs-canvas" aria-hidden="true"></canvas>
+
+  <!-- ==========================================================================
+       CONTAINER FLUTUANTE DA NAVBAR E MARQUEE
+       - Limites: 370px horizontal, 25px vertical
+       - Navbar: altura 90px, background blur #000000 75%, border-radius 8px
+       - Marquee: altura 30px, background #111FF1 20%, border-radius 8px, clip content
+       ========================================================================== -->
+  <header class="header-floating-wrapper" id="headerFloatingWrapper">
+    
+    <!-- 1. Navbar Principal (90px) -->
+    <nav class="navbar-card" aria-label="Navegação Principal">
+      
+      <!-- Logo Oficial InvestCar-LogoIcon.svg -->
+      <a href="#hero" class="navbar-brand-link" aria-label="Invest Car Início">
+        <img src="images/InvestCar-LogoIcon.svg" alt="Invest Car Logo" class="navbar-logo-img" width="55" height="53">
+      </a>
+
+      <!-- Ações Direitas: Área do Investidor, Botão Investir Agora e Botão Menu Hambúrguer -->
+      <div class="navbar-actions-group">
+        <a href="https://investcarbr.com.br/assinantes/login" target="_blank" rel="noopener noreferrer" class="navbar-investor-link">Área do investidor</a>
+        <a href="https://wa.me/message/I6P2ESAWVNZPB1?text=Ola%2C%20fiquei%20interessado%20e%20quero%20saber%20mais%2C%20vim%20pelo%20site." target="_blank" rel="noopener noreferrer" class="btn-investir-agora" data-magnetic="true">
+          <span class="btn-text">Investir agora</span>
+        </a>
+        <button class="btn-menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Abrir menu" data-magnetic="true">
+          <span class="btn-text">
+            <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
+              <line class="bar bar-top" x1="3" y1="7" x2="17" y2="7" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+              <line class="bar bar-mid" x1="3" y1="10" x2="17" y2="10" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+              <line class="bar bar-bot" x1="3" y1="13" x2="17" y2="13" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+    </nav>
+
+    <!-- 2. Container Ticker Marquee Infinito (30px) -->
+    <div class="navbar-marquee-card" id="navbarMarqueeCard">
+      <div class="marquee-track" id="marqueeTrack">
+        <!-- Grupo 1 -->
+        <div class="marquee-group">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+        </div>
+        <!-- Grupo 2 (Clonado para loop infinito 100% contínuo e sem gaps) -->
+        <div class="marquee-group" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+          <span class="marquee-text">Até 3% ao mês de Rendimento</span>
+          <img src="images/Star-4p.svg" alt="" class="marquee-star-icon" aria-hidden="true">
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- ==========================================================================
+       MENU TIMELINE GSAP (CLEAR & REBUILD PATTERN)
+       - 3 Divisas / Painéis animados:
+         1. Painel Top: Navegação das sessões da página + Área do investidor
+         2. Painel Middle: CTA e Chamada para Contatar (WhatsApp + Simulação)
+         3. Painel Bottom: Link para "Site Principal" (investcarbr.com.br) + Redes
+       ========================================================================== -->
+  <div class="nav" id="nav" aria-hidden="true">
+    <div class="nav-bg" id="navBg"></div>
+
+    <div class="nav-panels-container">
+      
+      <!-- Botão Fechar idêntico ao hambúrguer, posicionado no mesmo local exato e acima do blur -->
+      <button class="btn-menu-toggle btn-menu-close" id="navCloseBtn" aria-label="Fechar menu" data-magnetic="true">
+        <span class="btn-text">
+          <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
+            <line class="bar bar-top" x1="3" y1="7" x2="17" y2="7" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+            <line class="bar bar-mid" x1="3" y1="10" x2="17" y2="10" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+            <line class="bar bar-bot" x1="3" y1="13" x2="17" y2="13" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </button>
+
+      <!-- 1. Top Panel — Navegação das Sessões -->
+      <div class="nav-top nav-border nav-panel" id="navTop">
+        
+        <!-- Header do Painel com Badge e espaçador reservando o espaço do botão fechar -->
+        <div class="nav-top-header">
+          <div class="nav-panel-badge">
+            <span>NAVEGAÇÃO DO SITE</span>
+          </div>
+          <div class="nav-close-spacer" aria-hidden="true"></div>
+        </div>
+
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a class="nav-link" href="#hero">
+              <span class="nav-link-num">01</span>
+              <span class="nav-link-title">Início</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#destaques">
+              <span class="nav-link-num">02</span>
+              <span class="nav-link-title">Indicadores</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#simulador">
+              <span class="nav-link-num">03</span>
+              <span class="nav-link-title">Simulador</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#vantagens">
+              <span class="nav-link-num">04</span>
+              <span class="nav-link-title">Vantagens</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#planos">
+              <span class="nav-link-num">05</span>
+              <span class="nav-link-title">Planos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#como-funciona">
+              <span class="nav-link-num">06</span>
+              <span class="nav-link-title">Como funciona</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#passo-a-passo">
+              <span class="nav-link-num">07</span>
+              <span class="nav-link-title">Passo a passo</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#faq">
+              <span class="nav-link-num">08</span>
+              <span class="nav-link-title">FAQ</span>
+            </a>
+          </li>
+        </ul>
+        <div class="nav-login">
+          <a href="https://investcarbr.com.br/assinantes/login" target="_blank" rel="noopener noreferrer" class="nav-login-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Área do Investidor</span>
+            <span class="nav-login-arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Middle Panel — CTA e Chamada para Contatar -->
+      <div class="nav-middle nav-border nav-panel" id="navMiddle">
+        <div class="nav-middle-header">FALE CONOSCO &middot; ATENDIMENTO DIRETO</div>
+        <div class="nav-middle-card">
+          <div class="nav-middle-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+          <div class="nav-middle-info">
+            <div class="nav-middle-title">Fale com nossos especialistas</div>
+            <div class="nav-middle-desc">Tire dúvidas sobre contratos, rendimentos de até 3% e garantia em veículos.</div>
+          </div>
+        </div>
+        <div class="nav-middle-actions">
+          <a href="https://wa.me/message/I6P2ESAWVNZPB1?text=Ola%2C%20fiquei%20interessado%20e%20quero%20saber%20mais%2C%20vim%20pelo%20site." target="_blank" rel="noopener noreferrer" class="nav-btn-contact whatsapp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c4.54 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.28-2.42 5.84a8.18 8.18 0 0 1-5.83 2.41c-1.47 0-2.9-.39-4.16-1.13l-.3-.18-3.11.82.83-3.03-.2-.31a8.2 8.2 0 0 1-1.26-4.42c0-4.54 3.7-8.24 8.25-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/>
+            </svg>
+            <span>Conversar no WhatsApp</span>
+          </a>
+          <a href="#simulador" class="nav-btn-contact secondary">Simular Retorno</a>
+        </div>
+      </div>
+
+      <!-- 3. Bottom Panel — Site Principal & Redes Sociais -->
+      <div class="nav-bottom nav-border nav-panel" id="navBottom">
+        <a href="https://investcarbr.com.br" class="nav-main-site-link" target="_blank" rel="noopener noreferrer">
+          <div class="nav-main-site-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <div class="nav-main-site-meta">
+            <span class="nav-main-site-label">SITE PRINCIPAL</span>
+            <span class="nav-main-site-url">investcarbr.com.br</span>
+          </div>
+          <span class="nav-main-site-badge">&rarr;</span>
+        </a>
+
+        <ul class="nav-socials">
+          <li><a href="https://wa.me/message/I6P2ESAWVNZPB1?text=Ola%2C%20fiquei%20interessado%20e%20quero%20saber%20mais%2C%20vim%20pelo%20site." target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/invest_brasil_/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61594626524719" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION COM BACKGROUND VÍDEO 100% HORIZONTAL E VERTICAL
+         (O vídeo ocupa 100% do monitor, e o conteúdo interno respeita 370px de margem)
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      
+      <!-- Container do Vídeo Background Fullscreen (100% largura e altura) -->
+      <div class="hero-video-bg-container" aria-hidden="true">
+        <video class="hero-video-element" id="heroVideo" autoplay muted loop playsinline preload="auto">
+          <source src="Videos/background-heroCar.mp4" type="video/mp4">
+          Seu navegador não suporta reprodução de vídeo HTML5.
+        </video>
+        <!-- Overlay escurecido para contraste -->
+        <div class="hero-video-overlay"></div>
+        <!-- Camada de degradê vertical inferior (250px) diretamente no background da hero acima do vídeo -->
+        <div class="hero-bottom-gradient"></div>
+      </div>
+
+      <!-- Conteúdo da Hero (com espaçamento obrigatório de 370px de cada lado) -->
+      <div class="site-container hero-content-container">
+        <div class="hero-content-inner" id="heroContentInner">
+          
+          <!-- Título Principal em Syne SemiBold com Texto Luminoso Interativo -->
+          <h1 class="hero-title">
+            Invista com gestão<br>
+            profissional e<br>
+            <span class="hero-glow-text">rendimento médio<br>de até 3% ao mês</span>
+          </h1>
+
+          <!-- Descrição da Proposta de Valor em Inter Regular -->
+          <p class="hero-description">
+            Participe de operações reais de compra, revenda e locação de veículos. Transparência, contrato formalizado e acompanhamento próximo do investidor.
+          </p>
+
+          <!-- Grid de 4 Destaques (conforme referência) -->
+          <div class="hero-features-grid">
+            <div class="hero-feature-item">
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M6 12h.01M18 12h.01"></path>
+              </svg>
+              <span>Aporte a partir de R$ 1.000</span>
+            </div>
+            <div class="hero-feature-item">
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span>Pagamentos mensais</span>
+            </div>
+            <div class="hero-feature-item">
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>Relatórios periódicos</span>
+            </div>
+            <div class="hero-feature-item">
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <line x1="3" y1="21" x2="21" y2="21"></line>
+                <line x1="6" y1="10" x2="6" y2="18"></line>
+                <line x1="10" y1="10" x2="10" y2="18"></line>
+                <line x1="14" y1="10" x2="14" y2="18"></line>
+                <line x1="18" y1="10" x2="18" y2="18"></line>
+                <polygon points="12 2 2 7 22 7"></polygon>
+              </svg>
+              <span>Fundo reais</span>
+            </div>
+          </div>
+
+          <!-- Botões de Ação (Mantidos com Efeito Magnético Dual) -->
+          <div class="hero-cta-group">
+            <a href="#planos" class="btn btn-primary">
+              <span class="btn-text">
+                Explorar Oportunidades
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
+            <a href="#simulador" class="btn btn-secondary">
+              <span class="btn-text">Simular Retorno</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Linha 25% branca na borda inferior da Hero com Rastro de LED animado a cada 2s -->
+      <div class="hero-bottom-line" aria-hidden="true">
+        <div class="hero-led-streak"></div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO DE INDICADORES & CONFIANÇA
+         - Início em z-index: 10 com overflow: visible
+         - Cards vazam exatamente 80px para cima (-80px) sobrepondo o final da Hero
+         - Altura dos cards: 375px
+         - Espaçamento inferior: 80px até a linha de dados/métricas
+         - Largura máxima centralizada: 1280px
+         ========================================================================== -->
+    <section class="section-indicadores" id="indicadores">
+      <div class="site-container indicadores-container">
+
+        <!-- Fileira dos 4 Cards (vazamento superior exato de -80px) -->
+        <div class="cards-row-container">
+
+          <!-- Card 1: Contrato formalizado -->
+          <div class="card-item gemini-border">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3 class="card-title">Contrato formalizado</h3>
+            <p class="card-desc">
+              Documentação clara com condições, prazos e direitos do investidor.
+            </p>
+          </div>
+
+          <!-- Card 2: Relatórios periódicos -->
+          <div class="card-item gemini-border">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <polyline points="7 16 11 12 14 15 17 8"></polyline>
+              </svg>
+            </div>
+            <h3 class="card-title">Relatórios periódicos</h3>
+            <p class="card-desc">
+              Acompanhe a performance das operações com transparência total.
+            </p>
+          </div>
+
+          <!-- Card 3: Suporte dedicado -->
+          <div class="card-item gemini-border">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="card-title">Suporte dedicado</h3>
+            <p class="card-desc">
+              Equipe disponível por WhatsApp para tirar dúvidas e orientar.
+            </p>
+          </div>
+
+          <!-- Card 4: Ativos reais -->
+          <div class="card-item gemini-border">
+            <div class="card-icon-wrap" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" rx="2"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+            </div>
+            <h3 class="card-title">Ativos reais</h3>
+            <p class="card-desc">
+              Veículos como garantia em operações de compra, revenda e locação.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Linha com os 4 Indicadores Métricos -->
+        <div class="metrics-row-container">
+
+          <div class="metric-col">
+            <div class="metric-number" data-target="Até 3%">
+              <span class="metric-ghost" aria-hidden="true">Até 3%</span>
+              <span class="metric-scramble">Até 3%</span>
+            </div>
+            <div class="metric-label">Rendimento mensal alvo</div>
+          </div>
+
+          <div class="metric-separator" aria-hidden="true"></div>
+
+          <div class="metric-col">
+            <div class="metric-number" data-target="R$ 1.000">
+              <span class="metric-ghost" aria-hidden="true">R$ 1.000</span>
+              <span class="metric-scramble">R$ 1.000</span>
+            </div>
+            <div class="metric-label">Aporte mínimo</div>
+          </div>
+
+          <div class="metric-separator" aria-hidden="true"></div>
+
+          <div class="metric-col">
+            <div class="metric-number" data-target="Recorrência">
+              <span class="metric-ghost" aria-hidden="true">Recorrência</span>
+              <span class="metric-scramble">Recorrência</span>
+            </div>
+            <div class="metric-label">Frequência de pagamentos mensal</div>
+          </div>
+
+          <div class="metric-separator" aria-hidden="true"></div>
+
+          <div class="metric-col">
+            <div class="metric-number" data-target="100%">
+              <span class="metric-ghost" aria-hidden="true">100%</span>
+              <span class="metric-scramble">100%</span>
+            </div>
+            <div class="metric-label">Operações com garantia em veículos</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO: SIMULADOR DE RENDIMENTO & OPORTUNIDADE
+         - Linha divisória branca no topo (20% opacidade)
+         - Coluna Esquerda: Texto estilo Hero, proposta de valor, lista de benefícios e CTA
+         - Coluna Direita: Simulador interativo com cálculo de juros compostos em tempo real
+         ========================================================================== -->
+    <section class="section-simulador" id="simulador">
+      <div class="site-container">
+
+        <!-- Linha divisória branca no topo (20% de opacidade) -->
+        <div class="simulador-divider-line" aria-hidden="true"></div>
+
+        <div class="simulador-grid">
+
+          <!-- Coluna Esquerda: Conteúdo / Benefícios / Botão -->
+          <div class="simulador-info-col">
+            <h2 class="simulador-title">
+              Oportunidade de investimento com <span class="hero-glow-text">rentabilidade garantida.</span>
+            </h2>
+
+            <p class="simulador-desc">
+              Os rendimentos são gerados por meio da locação de veículos, para aplicativos como 99 e Uber e frotas para empresas assim como a locação de máquinas pra construção civil, atividade que garante fluxo constante de receita e viabiliza o pagamento dos lucros mensais de forma sustentável.
+            </p>
+
+            <ul class="simulador-benefits-list">
+              <li class="sim-benefit-item">
+                <div class="sim-benefit-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                    <circle cx="12" cy="15" r="2"></circle>
+                  </svg>
+                </div>
+                <span>Resgate a qualquer momento</span>
+              </li>
+
+              <li class="sim-benefit-item">
+                <div class="sim-benefit-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="1" y1="14" x2="7" y2="14"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                  </svg>
+                </div>
+                <span>Flexibilidade para o investidor</span>
+              </li>
+
+              <li class="sim-benefit-item">
+                <div class="sim-benefit-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <polyline points="9 12 11 14 15 10"></polyline>
+                  </svg>
+                </div>
+                <span>Segurança para o investidor</span>
+              </li>
+
+              <li class="sim-benefit-item">
+                <div class="sim-benefit-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    <path d="M12 8v8M9.5 10.5a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 3.5"></path>
+                  </svg>
+                </div>
+                <span>Valor investido recuperável</span>
+              </li>
+            </ul>
+
+            <div class="simulador-cta-wrap">
+              <a href="#planos" class="btn btn-primary" data-magnetic="true">
+                <span class="btn-text">Interessado?</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Coluna Direita: Card do Simulador -->
+          <div class="simulador-card-col">
+            <div class="simulador-card gemini-border-fixed">
+              
+              <!-- Máscara do Reflexo de Feixe Luminoso (Glare Sheen) -->
+              <div class="simulador-sheen-mask" aria-hidden="true">
+                <div class="simulador-card-sheen" id="simuladorCardSheen"></div>
+              </div>
+
+              <!-- Topo do Card -->
+              <div class="sim-card-header">
+                <div>
+                  <h3 class="sim-card-title">Simulador de rendimento</h3>
+                  <p class="sim-card-subtitle">Projeção com juros compostos</p>
+                </div>
+                <div class="sim-badge-tag">
+                  <span class="badge-dot"></span> Até 3%
+                </div>
+              </div>
+
+              <!-- Campo 1: Valor a investir -->
+              <div class="sim-field-group">
+                <div class="sim-field-labels">
+                  <label for="simValorInput">Valor a investir</label>
+                  <span class="sim-label-hint">Mín. R$ 1.000</span>
+                </div>
+                <div class="sim-input-box">
+                  <span class="sim-input-prefix">R$</span>
+                  <input type="number" id="simValorInput" min="1000" step="100" value="1000" placeholder="1000">
+                </div>
+              </div>
+
+              <!-- Campo 2: Prazo -->
+              <div class="sim-field-group">
+                <div class="sim-field-labels">
+                  <label for="simPrazoSelect">Prazo</label>
+                  <span class="sim-label-hint">Meses</span>
+                </div>
+                <div class="sim-select-box">
+                  <select id="simPrazoSelect">
+                    <option value="6">6 meses</option>
+                    <option value="12" selected>12 meses</option>
+                    <option value="24">24 meses</option>
+                    <option value="48">48 meses</option>
+                  </select>
+                  <svg class="sim-select-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Campo 3: Rentabilidade estimada (Slider) -->
+              <div class="sim-field-group">
+                <div class="sim-field-labels">
+                  <label for="simTaxaSlider">Rentabilidade estimada</label>
+                  <span class="sim-label-hint">Até 3% a.m.</span>
+                </div>
+                <div class="sim-slider-wrap">
+                  <input type="range" id="simTaxaSlider" min="0.5" max="3.0" step="0.1" value="3.0">
+                </div>
+                <div class="sim-taxa-display" id="simTaxaDisplay">3% ao mês</div>
+              </div>
+
+              <!-- Divisor pontilhado -->
+              <div class="sim-dotted-divider" aria-hidden="true"></div>
+
+              <!-- Card Branco: Patrimônio Projetado -->
+              <div class="sim-white-card">
+                <span class="sim-white-card-label">PATRIMÔNIO PROJETADO</span>
+                <div class="sim-white-card-value" id="simPatrimonioVal">R$ 1.425,76</div>
+                <div class="sim-white-card-sub" id="simPatrimonioSub">em 12 meses</div>
+              </div>
+
+              <!-- Rendimento Mensal Estimado -->
+              <div class="sim-rendimento-row">
+                <span class="sim-rendimento-label">Rendimento mensal estimado</span>
+                <span class="sim-rendimento-val" id="simRendimentoVal">R$ 30,00</span>
+              </div>
+
+              <!-- Caixa Comparativo no Mesmo Prazo -->
+              <div class="sim-comparativo-card">
+                <div class="sim-comparativo-title">COMPARATIVO NO MESMO PRAZO</div>
+                
+                <div class="sim-comp-row">
+                  <span class="sim-comp-name is-brand">InvestCarBR</span>
+                  <span class="sim-comp-number is-highlight" id="simCompInvestCar">R$ 1.425,76</span>
+                </div>
+
+                <div class="sim-comp-divider" aria-hidden="true"></div>
+
+                <div class="sim-comp-row">
+                  <span class="sim-comp-name">CDI (~0,9% a.m.)</span>
+                  <span class="sim-comp-number" id="simCompCDI">R$ 1.113,51</span>
+                </div>
+
+                <div class="sim-comp-divider" aria-hidden="true"></div>
+
+                <div class="sim-comp-row">
+                  <span class="sim-comp-name">Poupança (~0,5% a.m.)</span>
+                  <span class="sim-comp-number" id="simCompPoupanca">R$ 1.061,68</span>
+                </div>
+              </div>
+
+              <!-- Botão de Ação -->
+              <a href="#planos" class="btn btn-primary sim-btn-cta" data-magnetic="true">
+                <span class="btn-text">Explorar Oportunidades</span>
+              </a>
+
+              <!-- Aviso legal -->
+              <p class="sim-disclaimer">
+                *Simulação ilustrativa. Rentabilidade passada não garante resultados futuros.
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO: MARQUEE LINEAR CONTÍNUO (400PX FIXADO)
+         - Altura de 400px fixa, contida perfeitamente no fluxo do layout
+         - Animação linear contínua e autônoma (sem dependência de scroll ou cliques)
+         - Texto em loop: "O seu futuro ideal está muito mais perto se for com a InvestCar"
+         - Separador: SVG V-Invest-icon.svg
+         - Tipografia: Syne SemiBold grande
+         ========================================================================== -->
+    <section class="section-marquee-400" id="marquee-destaque">
+      <div class="marquee-linear-wrapper">
+        <div class="marquee-linear-track" id="marqueeLinearTrack">
+          
+          <!-- Bloco A (Original) -->
+          <div class="marquee-linear-group">
+            <div class="marquee-linear-item">
+              <span class="marquee-linear-text">
+                <span class="marquee-phrase">O seu futuro ideal está muito mais perto se for com a InvestCar</span>
+              </span>
+              <span class="marquee-linear-sep" aria-hidden="true">
+                <img src="images/V-Invest-icon.svg" alt="InvestCar Icon" class="marquee-linear-icon" width="60" height="78">
+              </span>
+            </div>
+            <div class="marquee-linear-item">
+              <span class="marquee-linear-text">
+                <span class="marquee-phrase">O seu futuro ideal está muito mais perto se for com a InvestCar</span>
+              </span>
+              <span class="marquee-linear-sep" aria-hidden="true">
+                <img src="images/V-Invest-icon.svg" alt="InvestCar Icon" class="marquee-linear-icon" width="60" height="78">
+              </span>
+            </div>
+            <div class="marquee-linear-item">
+              <span class="marquee-linear-text">
+                <span class="marquee-phrase">O seu futuro ideal está muito mais perto se for com a InvestCar</span>
+              </span>
+              <span class="marquee-linear-sep" aria-hidden="true">
+                <img src="images/V-Invest-icon.svg" alt="InvestCar Icon" class="marquee-linear-icon" width="60" height="78">
+              </span>
+            </div>
+          </div>
+
+          <!-- Bloco B (Duplicata idêntica para loop infinito imperceptível) -->
+          <div class="marquee-linear-group" aria-hidden="true">
+            <div class="marquee-linear-item">
+              <span class="marquee-linear-text">
+                <span class="marquee-phrase">O seu futuro ideal está muito mais perto se for com a InvestCar</span>
+              </span>
+              <span class="marquee-linear-sep">
+                <img src="images/V-Invest-icon.svg" alt="InvestCar Icon" class="marquee-linear-icon" width="60" height="78">
+              </span>
+            </div>
+            <div class="marquee-linear-item">
+              <span class="marquee-linear-text">
+                <span class="marquee-phrase">O seu futuro ideal está muito mais perto se for com a InvestCar</span>
+              </span>
+              <span class="marquee-linear-sep">
+                <img src="images/V-Invest-icon.svg" alt="InvestCar Icon" class="marquee-linear-icon" width="60" height="78">
+              </span>
+            </div>
+            <div class="marquee-linear-item">
+              <span class="marquee-linear-text">
+                <span class="marquee-phrase">O seu futuro ideal está muito mais perto se for com a InvestCar</span>
+              </span>
+              <span class="marquee-linear-sep">
+                <img src="images/V-Invest-icon.svg" alt="InvestCar Icon" class="marquee-linear-icon" width="60" height="78">
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO: VANTAGENS / DIFERENCIAIS (GRID DE CARDS GEMINI BORDER)
+         - Tag com efeito Typewriter ("vantagens", "benefícios", "diferenciais")
+         - Título em Syne SemiBold com texto inferior luminoso (.hero-glow-text)
+         - 6 Cards idênticos aos da seção indicadores (estilo, hover Gemini e tilt 3D)
+         ========================================================================== -->
+    <!-- ==========================================================================
+         SEÇÃO: VANTAGENS / DIFERENCIAIS (GSAP HORIZONTAL SCROLLING GALLERY)
+         - Tag com efeito Typewriter ("vantagens", "benefícios", "diferenciais")
+         - Título em Syne SemiBold com texto inferior luminoso (.hero-glow-text)
+         - Galeria Horizontal com Pinning ScrollTrigger e 6 Cards com fotos e badges
+         ========================================================================== -->
+    <section class="section-vantagens" id="vantagens">
+      
+      <!-- Header da Seção Centralizado -->
+      <div class="site-container vantagens-gallery-header">
+        <div class="vantagens-tag">
+          <span class="typewriter-inner"><span class="typewriter-text" id="typewriterText">vantagens</span><span class="typewriter-cursor">|</span></span>
+        </div>
+        <h2 class="vantagens-title">
+          Por que investidores<br>
+          <span class="hero-glow-text">escolhem a InvestCar?</span>
+        </h2>
+      </div>
+
+      <!-- Container da Galeria Horizontal Pinada -->
+      <div class="horiz-gallery-wrapper" id="vantagensGalleryWrapper">
+        <div class="horiz-gallery-strip" id="vantagensGalleryStrip">
+
+          <!-- Card 1: Rendimento superior -->
+          <div class="gallery-card-item">
+            <div class="gallery-card-media">
+              <img src="images/card-rendimento-superior.png" alt="Rendimento superior" class="gallery-card-img" loading="eager">
+              <div class="gallery-card-overlay"></div>
+            </div>
+            <div class="gallery-card-content">
+              <div class="gallery-card-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+              <h3 class="gallery-card-title">Rendimento superior</h3>
+              <p class="gallery-card-desc">Potencial acima de CDI, poupança e investimentos tradicionais.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Segurança jurídica -->
+          <div class="gallery-card-item">
+            <div class="gallery-card-media">
+              <img src="images/card-seguranca-juridica.png" alt="Segurança jurídica" class="gallery-card-img" loading="eager">
+              <div class="gallery-card-overlay"></div>
+            </div>
+            <div class="gallery-card-content">
+              <div class="gallery-card-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <h3 class="gallery-card-title">Segurança jurídica</h3>
+              <p class="gallery-card-desc">Contrato formalizado e CNPJ do Grupo Speed Car.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Transparência total -->
+          <div class="gallery-card-item">
+            <div class="gallery-card-media">
+              <img src="images/card-transparencia-total.png" alt="Transparência total" class="gallery-card-img" loading="eager">
+              <div class="gallery-card-overlay"></div>
+            </div>
+            <div class="gallery-card-content">
+              <div class="gallery-card-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <line x1="10" y1="9" x2="8" y2="9"></line>
+                </svg>
+              </div>
+              <h3 class="gallery-card-title">Transparência total</h3>
+              <p class="gallery-card-desc">Relatórios periódicos e equipe disponível.</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Pagamentos mensais -->
+          <div class="gallery-card-item">
+            <div class="gallery-card-media">
+              <img src="images/card-pagamento-mensais.png" alt="Pagamentos mensais" class="gallery-card-img" loading="eager">
+              <div class="gallery-card-overlay"></div>
+            </div>
+            <div class="gallery-card-content">
+              <div class="gallery-card-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <h3 class="gallery-card-title">Pagamentos mensais</h3>
+              <p class="gallery-card-desc">Receba rendimentos todo mês.</p>
+            </div>
+          </div>
+
+          <!-- Card 5: Suporte humano -->
+          <div class="gallery-card-item">
+            <div class="gallery-card-media">
+              <img src="images/card-suporte-humano.png" alt="Suporte humano" class="gallery-card-img" loading="eager">
+              <div class="gallery-card-overlay"></div>
+            </div>
+            <div class="gallery-card-content">
+              <div class="gallery-card-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <h3 class="gallery-card-title">Suporte humano</h3>
+              <p class="gallery-card-desc">WhatsApp com especialistas do fundo.</p>
+            </div>
+          </div>
+
+          <!-- Card 6: Mercado aquecido -->
+          <div class="gallery-card-item">
+            <div class="gallery-card-media">
+              <img src="images/card-mercado-aquecido.png" alt="Mercado aquecido" class="gallery-card-img" loading="eager">
+              <div class="gallery-card-overlay"></div>
+            </div>
+            <div class="gallery-card-content">
+              <div class="gallery-card-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 14 4-4"></path>
+                  <path d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+                </svg>
+              </div>
+              <h3 class="gallery-card-title">Mercado aquecido</h3>
+              <p class="gallery-card-desc">Setor automotivo com alta liquidez.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO: PLANOS
+         - Tag "PLANOS", título e subtítulo centralizados
+         - 3 cards: Inicial / Profissional (destaque com gemini-border fixo) / Elite
+         - Botões com o mesmo efeito magnético dos demais botões do site
+         ========================================================================== -->
+    <section class="section-planos" id="planos">
+      <div class="site-container">
+
+        <div class="planos-header">
+          <div class="planos-tag">PLANOS</div>
+          <h2 class="planos-title">Escolha o <span class="hero-glow-text">nível</span> de participação ideal</h2>
+          <p class="planos-subtitle">
+            Todos os planos participam do mesmo modelo. O valor define o nível de acompanhamento.
+          </p>
+        </div>
+
+        <div class="planos-grid">
+
+          <!-- Plano Inicial -->
+          <article class="plano-card">
+            <span class="plano-eyebrow">Entrada</span>
+            <h3 class="plano-name">Plano Inicial</h3>
+            <p class="plano-desc">Comece com valor acessível e conheça o fundo.</p>
+
+            <div class="plano-price">
+              <span class="plano-currency">R$</span>
+              <span class="plano-amount">1.000</span>
+              <span class="plano-cents">,00</span>
+            </div>
+            <div class="plano-range">Faixas: 1.000 · 3.000</div>
+
+            <ul class="plano-features">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Até 3% ao mês</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Relatórios periódicos</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Suporte por WhatsApp</li>
+            </ul>
+
+            <a href="https://wa.me/554789133777?text=Ol%C3%A1%2C%20tudo%20bom%3F%20tenho%20interesse%20e%20gostaria%20de%20conhecer%20o%20plano%20inicial" target="_blank" rel="noopener noreferrer" class="btn btn-primary plano-btn" data-magnetic="true">
+              <span class="btn-text">Quero o Plano Inicial</span>
+            </a>
+          </article>
+
+          <!-- Plano Profissional (destaque + gemini-border fixo) -->
+          <article class="plano-card plano-card-featured">
+            <span class="plano-badge">Mais escolhido</span>
+            <span class="plano-eyebrow">Crescimento</span>
+            <h3 class="plano-name">Plano Profissional</h3>
+            <p class="plano-desc">Participação robusta com acompanhamento próximo.</p>
+
+            <div class="plano-price">
+              <span class="plano-currency">R$</span>
+              <span class="plano-amount">5.000</span>
+              <span class="plano-cents">,00</span>
+            </div>
+            <div class="plano-range">Faixas: 5k · 10k · 20k</div>
+
+            <ul class="plano-features">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Até 3% ao mês</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Relatórios detalhados</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Contato direto com gestor</li>
+            </ul>
+
+            <a href="https://wa.me/554789133777?text=Ol%C3%A1%2C%20tudo%20bom%3F%20tenho%20interesse%20e%20gostaria%20de%20conhecer%20o%20plano%20profissional" target="_blank" rel="noopener noreferrer" class="btn plano-btn plano-btn-green" data-magnetic="true">
+              <span class="btn-text">Quero o Plano Profissional</span>
+            </a>
+          </article>
+
+          <!-- Plano Elite -->
+          <article class="plano-card">
+            <span class="plano-eyebrow">Alta participação</span>
+            <h3 class="plano-name">Plano Elite</h3>
+            <p class="plano-desc">Para investidores experientes com maior influência.</p>
+
+            <div class="plano-price">
+              <span class="plano-currency">R$</span>
+              <span class="plano-amount">50.000</span>
+              <span class="plano-cents">,00</span>
+            </div>
+            <div class="plano-range">Faixas: 50k · 100k · 200k</div>
+
+            <ul class="plano-features">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Até 3% ao mês</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Estratégias personalizadas</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Reunião individual</li>
+            </ul>
+
+            <a href="https://wa.me/554789133777?text=Ol%C3%A1%2C%20tudo%20bom%3F%20tenho%20interesse%20e%20gostaria%20de%20conhecer%20o%20plano%20elite" target="_blank" rel="noopener noreferrer" class="btn btn-primary plano-btn" data-magnetic="true">
+              <span class="btn-text">Quero o Plano Elite</span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO: GSAP INFINITE CARD SLIDER (REELS & BASTIDORES)
+         - Cards em proporção 9:16 com border-radius de 8px
+         - 10 Capas dos Reels da pasta images
+         - Carrossel infinito em 3D contínuo via GSAP seamlessLoop
+         - Botões Prev/Next no padrão InvestCar (com suporte magnético e ícones)
+         - Suporte completo a arrasto (Draggable) e navegação por scroll
+         ========================================================================== -->
+    <section class="section-reels-slider" id="como-funciona">
+      
+      <!-- Cabeçalho da Seção -->
+      <div class="reels-slider-header site-container">
+        <span class="reels-slider-tag">VÍDEOS EXPLICATIVOS</span>
+        <h2 class="reels-slider-title">
+          Nossa equipe explica <span class="hero-glow-text">como funciona</span>
+        </h2>
+        <p class="reels-slider-subtitle">
+          Assista aos vídeos das nossas especialistas — sem compromisso, direto ao ponto.
+        </p>
+      </div>
+
+      <!-- Container do Slider (Gallery) -->
+      <div class="reels-gallery-container gallery">
+        <ul class="reels-cards-list cards">
+          <li style="background-image: url('images/Capa Reels Carrossel (1).png');" data-video="Videos/Capa Reels Carrossel (1).mp4" aria-label="Capa Reels 1">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (2).png');" data-video="Videos/Capa Reels Carrossel (2).mp4" aria-label="Capa Reels 2">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (3).png');" data-video="Videos/Capa Reels Carrossel (3).mp4" aria-label="Capa Reels 3">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (4).png');" data-video="Videos/Capa Reels Carrossel (4).mp4" aria-label="Capa Reels 4">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (5).png');" data-video="Videos/Capa Reels Carrossel (5).mp4" aria-label="Capa Reels 5">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (6).png');" data-video="Videos/Capa Reels Carrossel (6).mp4" aria-label="Capa Reels 6">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (7).png');" data-video="Videos/Capa Reels Carrossel (7).mp4" aria-label="Capa Reels 7">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (8).png');" data-video="Videos/Capa Reels Carrossel (8).mp4" aria-label="Capa Reels 8">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (9).png');" data-video="Videos/Capa Reels Carrossel (9).mp4" aria-label="Capa Reels 9">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li style="background-image: url('images/Capa Reels Carrossel (10).png');" data-video="Videos/Capa Reels Carrossel (10).mp4" aria-label="Capa Reels 10">
+            <div class="reels-card-play-btn" aria-hidden="true">
+              <div class="play-btn-pulse"></div>
+              <div class="play-btn-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Controles de Ação Padronizados InvestCar -->
+        <div class="reels-actions actions">
+          <button type="button" class="btn btn-secondary reels-btn-prev prev" data-magnetic="true" aria-label="Card anterior">
+            <span class="btn-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Anterior
+            </span>
+          </button>
+          <button type="button" class="btn btn-primary reels-btn-next next" data-magnetic="true" aria-label="Próximo card">
+            <span class="btn-text">
+              Próximo
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Proxy Invisível para o Draggable GSAP -->
+      <div class="drag-proxy" aria-hidden="true"></div>
+
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO: PASSO A PASSO (LATERAL PIN INDICATOR COM GSAP)
+         - Layout 2 Colunas com Pinning ScrollTrigger
+         - Canto Esquerdo: 3 Cards ricos com os dados das etapas
+         - Canto Direito: Tópicos de cada card com barra lateral (indicator fill)
+         ========================================================================== -->
+    <section class="section-passo-a-passo pin-section" id="passo-a-passo">
+      <div class="site-container passo-site-container">
+
+        <!-- Cabeçalho da Seção Centralizado -->
+        <div class="passo-header">
+          <span class="passo-tag">PASSO A PASSO</span>
+          <h2 class="passo-title">
+            Como começar a investir com a <span class="hero-glow-text">InvestCar</span>
+          </h2>
+          <p class="passo-subtitle">
+            O processo é simples e acompanhado de perto pela nossa equipe, desde a escolha do plano até o acompanhamento do rendimento.
+          </p>
+        </div>
+
+        <!-- Área de Conteúdo: Grid 2 Colunas -->
+        <div class="passo-content-grid">
+
+          <!-- Coluna Esquerda: 3 Cards com os dados empilhados -->
+          <div class="passo-cards-column">
+            <div class="passo-cards-viewport">
+
+              <!-- Card 1: Escolha do plano -->
+              <article class="passo-card-slide gemini-border" data-slide="0">
+                <div class="passo-card-top">
+                  <div class="passo-card-num-badge" aria-hidden="true">1</div>
+                  <span class="passo-card-category">Etapa 01 · Planejamento</span>
+                </div>
+                <div class="passo-card-body">
+                  <h3 class="passo-card-title">Escolha do plano</h3>
+                  <p class="passo-card-desc">
+                    Defina o valor que deseja investir e o plano ideal. Em caso de dúvida, nossa equipe te ajuda na decisão.
+                  </p>
+                  <ul class="passo-card-features">
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Aporte inicial acessível a partir de <strong>R$ 1.000</strong></span>
+                    </li>
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Três opções sob medida: <strong>Inicial, Profissional ou Elite</strong></span>
+                    </li>
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Simulador transparente de rendimento com juros compostos</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="passo-card-footer">
+                  <a href="#planos" class="btn btn-primary passo-btn" data-magnetic="true">
+                    <span class="btn-text">Ver planos disponíveis</span>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Card 2: Formalização do contrato -->
+              <article class="passo-card-slide gemini-border" data-slide="1">
+                <div class="passo-card-top">
+                  <div class="passo-card-num-badge" aria-hidden="true">2</div>
+                  <span class="passo-card-category">Etapa 02 · Segurança Jurídica</span>
+                </div>
+                <div class="passo-card-body">
+                  <h3 class="passo-card-title">Formalização do contrato</h3>
+                  <p class="passo-card-desc">
+                    Você recebe toda a documentação, com condições, prazos e detalhes. Após a assinatura e o aporte, o capital é alocado nas estratégias.
+                  </p>
+                  <ul class="passo-card-features">
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Contrato formalizado com o <strong>CNPJ do Grupo Speed Car</strong></span>
+                    </li>
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Assinatura digital rápida, segura e com total validade jurídica</span>
+                    </li>
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Capital imediatamente alocado na compra e locação de frotas ativas</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="passo-card-footer">
+                  <a href="https://wa.me/message/I6P2ESAWVNZPB1?text=Ola%2C%20fiquei%20interessado%20e%20quero%20saber%20mais%2C%20vim%20pelo%20site." target="_blank" rel="noopener noreferrer" class="btn btn-primary passo-btn" data-magnetic="true">
+                    <span class="btn-text">Falar com especialista</span>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Card 3: Acompanhamento e rendimento -->
+              <article class="passo-card-slide gemini-border" data-slide="2">
+                <div class="passo-card-top">
+                  <div class="passo-card-num-badge" aria-hidden="true">3</div>
+                  <span class="passo-card-category">Etapa 03 · Rentabilidade</span>
+                </div>
+                <div class="passo-card-body">
+                  <h3 class="passo-card-title">Acompanhamento e rendimento</h3>
+                  <p class="passo-card-desc">
+                    Todo mês você acompanha a performance, recebe relatórios e pode falar com a equipe para planejar os próximos passos.
+                  </p>
+                  <ul class="passo-card-features">
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Rendimentos de até <strong>3% ao mês</strong> creditados diretamente</span>
+                    </li>
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Relatórios periódicos transparentes com demonstrativos de performance</span>
+                    </li>
+                    <li>
+                      <div class="feature-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <span>Canal exclusivo de WhatsApp com os especialistas do fundo</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="passo-card-footer">
+                  <a href="https://wa.me/message/I6P2ESAWVNZPB1?text=Ola%2C%20fiquei%20interessado%20e%20quero%20saber%20mais%2C%20vim%20pelo%20site." target="_blank" rel="noopener noreferrer" class="btn btn-primary passo-btn" data-magnetic="true">
+                    <span class="btn-text">Começar a investir</span>
+                  </a>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <!-- Coluna Direita: Tópicos de cada card com Lateral Pin Indicator -->
+          <div class="passo-topics-column">
+            
+            <!-- Barra Lateral com Track e Fill Animado -->
+            <div class="passo-indicator-track" aria-hidden="true">
+              <div class="passo-indicator-fill"></div>
+            </div>
+
+            <!-- Lista de Tópicos Interativos -->
+            <ul class="passo-topics-list">
+
+              <li class="passo-topic-item is-active" data-step="0">
+                <div class="topic-indicator-dot" aria-hidden="true">
+                  <span class="dot-core"></span>
+                </div>
+                <div class="topic-content">
+                  <span class="topic-step-num">01</span>
+                  <h4 class="topic-title">Escolha do plano</h4>
+                  <p class="topic-desc">Defina o aporte ideal e os objetivos</p>
+                </div>
+              </li>
+
+              <li class="passo-topic-item" data-step="1">
+                <div class="topic-indicator-dot" aria-hidden="true">
+                  <span class="dot-core"></span>
+                </div>
+                <div class="topic-content">
+                  <span class="topic-step-num">02</span>
+                  <h4 class="topic-title">Formalização do contrato</h4>
+                  <p class="topic-desc">Documentação ágil e segurança jurídica</p>
+                </div>
+              </li>
+
+              <li class="passo-topic-item" data-step="2">
+                <div class="topic-indicator-dot" aria-hidden="true">
+                  <span class="dot-core"></span>
+                </div>
+                <div class="topic-content">
+                  <span class="topic-step-num">03</span>
+                  <h4 class="topic-title">Acompanhamento e rendimento</h4>
+                  <p class="topic-desc">Lucros mensais e suporte próximo</p>
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    
+    <!-- ==========================================================================
+         SEÇÃO: PERGUNTAS FREQUENTES (FAQ ACCORDION)
+         - Design coerente com a paleta escura, glassmorphism e neon accents
+         - Acordeão interativo com micro-interações fluidas
+         - Respeito integral ao limite desktop de 375px via .site-container
+         ========================================================================== -->
+    <section class="section-faq" id="faq">
+      <div class="site-container">
+        
+        <!-- Cabeçalho da Seção Centralizado -->
+        <div class="faq-header">
+          <span class="faq-tag">DÚVIDAS FREQUENTES</span>
+          <h2 class="faq-title">
+            Perguntas frequentes sobre a <span class="hero-glow-text">InvestCar</span>
+          </h2>
+          <p class="faq-subtitle">
+            Tire suas principais dúvidas sobre o funcionamento do fundo, segurança, rentabilidade e acompanhamento.
+          </p>
+        </div>
+
+        <!-- Lista do Acordeão FAQ -->
+        <div class="faq-accordion-wrapper">
+
+          <!-- Item 1 (aberto inicialmente para indicar interatividade) -->
+          <div class="faq-item is-open">
+            <button type="button" class="faq-question-btn" aria-expanded="true">
+              <span class="faq-item-num">01</span>
+              <span class="faq-question-text">Qual o valor mínimo para investir?</span>
+              <span class="faq-icon-toggle" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-inner">
+                <p class="faq-answer-text">
+                  O aporte mínimo é de R$ 1.000 no Plano Inicial. Planos superiores partem de R$ 5.000 e R$ 50.000.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn" aria-expanded="false">
+              <span class="faq-item-num">02</span>
+              <span class="faq-question-text">Como funciona o rendimento de até 3% ao mês?</span>
+              <span class="faq-icon-toggle" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-inner">
+                <p class="faq-answer-text">
+                  O fundo opera com compra, revenda e locação de veículos. Os resultados são distribuídos conforme o plano. O rendimento pode variar.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn" aria-expanded="false">
+              <span class="faq-item-num">03</span>
+              <span class="faq-question-text">É seguro investir?</span>
+              <span class="faq-icon-toggle" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-inner">
+                <p class="faq-answer-text">
+                  Contrato formalizado, CNPJ registado e gestão profissional. Como todo investimento, há riscos — explicamos tudo antes da adesão.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn" aria-expanded="false">
+              <span class="faq-item-num">04</span>
+              <span class="faq-question-text">Como recebo os rendimentos?</span>
+              <span class="faq-icon-toggle" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-inner">
+                <p class="faq-answer-text">
+                  Pagamentos mensais com relatórios de acompanhamento.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn" aria-expanded="false">
+              <span class="faq-item-num">05</span>
+              <span class="faq-question-text">Posso acompanhar minha aplicação?</span>
+              <span class="faq-icon-toggle" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-inner">
+                <p class="faq-answer-text">
+                  Sim. Relatórios periódicos e WhatsApp direto com a equipa.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO: CTA FINAL (CARRO AZUL & CARTÃO ELÉTRICO)
+         - Carro azul sobreposto na borda superior (images/Car-Blue-CTA.png)
+         - Borda superior com raio de 55px em cada lado e 0 embaixo
+         - Retângulo centralizado respeitando o padding global (.site-container)
+         - Botão com efeito magnético no mesmo padrão dos demais botões
+         ========================================================================== -->
+    <section class="section-cta" id="cta">
+      <div class="site-container cta-container">
+        
+        <div class="cta-card-wrapper">
+          
+          <!-- Asas/Aletas angulares de apoio com brilho neon nas laterais inferiores -->
+          <div class="cta-corner-wing left" aria-hidden="true"></div>
+          <div class="cta-corner-wing right" aria-hidden="true"></div>
+
+          <!-- Card Azul Royal Principal -->
+          <div class="cta-card">
+
+            <!-- Carro Azul em Destaque 3D (Sobreposto na borda do topo) -->
+            <img src="images/Car-Blue-CTA.png" alt="Hyundai Tucson Azul Invest Car" class="cta-car-image" width="828" height="455" loading="lazy">
+
+            <!-- Tag Superior -->
+            <span class="cta-tag">ÚLTIMA CHANCE DE TIRAR SUAS DÚVIDAS HOJE</span>
+
+            <!-- Título Principal -->
+            <h2 class="cta-title">
+              Pronto para fazer seu<br>
+              dinheiro render mais?
+            </h2>
+
+            <!-- Subtítulo -->
+            <p class="cta-subtitle">
+              Fale agora com nossa equipe e comece a investir a partir de R$ 1.000.
+            </p>
+
+            <!-- Linha Divisória Sutil -->
+            <div class="cta-divider" aria-hidden="true"></div>
+
+            <!-- Destaques de Confiança em Linha -->
+            <div class="cta-highlights">
+              
+              <!-- Item 1: Contrato formalizado -->
+              <div class="cta-highlight-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>Contrato formalizado</span>
+              </div>
+
+              <!-- Item 2: Resposta rápida -->
+              <div class="cta-highlight-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span>Resposta rápida</span>
+              </div>
+
+              <!-- Item 3: A partir de R$ 1.000 -->
+              <div class="cta-highlight-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <line x1="12" y1="8" x2="12" y2="16"></line>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>A partir de R$ 1.000</span>
+              </div>
+
+            </div>
+
+            <!-- Botão de Ação no Padrão do Site com Efeito Magnético -->
+            <a href="https://wa.me/message/I6P2ESAWVNZPB1?text=Ola%2C%20fiquei%20interessado%20e%20quero%20saber%20mais%2C%20vim%20pelo%20site." target="_blank" rel="noopener noreferrer" class="btn btn-primary cta-btn" data-magnetic="true">
+              <span class="btn-text">Investir agora!</span>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       RODAPÉ OFICIAL (SITE FOOTER)
+       - Fundo azul meia-noite oficial: #060865
+       - Margens horizontais no padrão global (.site-container com 375px)
+       - Bloco esquerdo: Badge azul com logo InvestCarBR + Texto institucional
+       - Bloco direito: Copyright, Razão Social/CNPJ e Links rápidos
+       ========================================================================== -->
+  <footer class="site-footer" id="contato">
+    <div class="site-container">
+      <div class="footer-inner">
+
+        <!-- Lado Esquerdo: Badge do Logo + Texto Institucional -->
+        <div class="footer-brand-info">
+          <div class="footer-brand-badge" aria-hidden="true">
+            <img src="images/InvestCar-LogoIcon.svg" alt="InvestCarBR Logo" width="22" height="22">
+          </div>
+          <p class="footer-brand-text">
+            Investimento transparente, contrato<br>
+            formalizado e acompanhamento pr&oacute;ximo<br>
+            da equipe InvestCarBR.
+          </p>
+        </div>
+
+        <!-- Lado Direito: Copyright, Empresa/CNPJ e Links Legais -->
+        <div class="footer-meta-info">
+          <p class="footer-copyright">
+            &copy; 2026 InvestCarBR &mdash; Todos os direitos reservados.
+          </p>
+          <p class="footer-company">
+            Grupo Speed Car | CNPJ: 36.699.973/0001-20
+          </p>
+          <div class="footer-links">
+            <a href="https://investcarbr.com.br" class="footer-link" target="_blank" rel="noopener noreferrer">investcarbr.com.br</a>
+            <span class="footer-link-dot">&middot;</span>
+            <a href="#termos" class="footer-link">Termos de Uso</a>
+            <span class="footer-link-dot">&middot;</span>
+            <a href="#privacidade" class="footer-link">Pol&iacute;tica de Privacidade</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MENU RADIAL FLUTUANTE (FIXO NO CANTO INFERIOR DIREITO)
+       - Gatilho com pulso neon azul (#101FF2)
+       - Ejeção com mola física GSAP elastic.out(1, 0.5)
+       - Pronto para links de WhatsApp, Facebook, Instagram e LinkedIn
+       ========================================================================== -->
+  <div class="radial-menu-wrap" id="radialWrap">
+    <div class="pulse-ring" id="pulseRing"></div>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/message/I6P2ESAWVNZPB1?text=Ola%2C%20fiquei%20interessado%20e%20quero%20saber%20mais%2C%20vim%20pelo%20site." class="fab-item whatsapp" data-label="WhatsApp" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24">
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c4.54 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.28-2.42 5.84a8.18 8.18 0 0 1-5.83 2.41c-1.47 0-2.9-.39-4.16-1.13l-.3-.18-3.11.82.83-3.03-.2-.31a8.2 8.2 0 0 1-1.26-4.42c0-4.54 3.7-8.24 8.25-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/>
+      </svg>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/profile.php?id=61594626524719" class="fab-item facebook" data-label="Facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/invest_brasil_/" class="fab-item instagram" data-label="Instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+    </a>
+
+    <!-- LinkedIn (Oculto temporariamente a pedido do usuário) -->
+    <!--
+    <a href="#" class="fab-item linkedin" data-label="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24">
+        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+      </svg>
+    </a>
+    -->
+
+    <!-- Gatilho Principal (Chat) -->
+    <button class="fab-main" id="fabBtn" aria-label="Abrir canais de contato" aria-expanded="false">
+      <div class="fab-icon-box">
+        <!-- Ícone Chat -->
+        <svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+        <!-- Ícone Fechar (X) -->
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE VÍDEO REELS (9:16 VERTICAL, CENTRALIZADO, BLUR OVERLAY)
+       ========================================================================== -->
+  <div class="reels-modal-overlay" id="reelsModalOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vídeo explicativo">
+    <div class="reels-modal-card" id="reelsModalCard">
+      <!-- Botão Fechar com 'X' Azul no canto superior direito do vídeo -->
+      <button type="button" class="reels-modal-close-btn" id="reelsModalCloseBtn" aria-label="Fechar vídeo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ed5ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Player de Vídeo 9:16 -->
+      <video class="reels-modal-video" id="reelsModalVideo" playsinline controls preload="metadata"></video>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       DEPENDÊNCIAS VIA CDN (OBRIGATÓRIAS)
+       ========================================================================== -->
+  <!-- 1. jQuery (versão 3.x minificada) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  
+  <!-- 2. GSAP Core (versão mais recente) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  
+  <!-- 3. GSAP ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- 4. GSAP Draggable (obrigatório para infinite card slider) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+
+  <!-- Lógica Principal com jQuery e Animações GSAP -->
+  <script src="js/main.js?v=20261015c"></script>
+</body>
+</html>

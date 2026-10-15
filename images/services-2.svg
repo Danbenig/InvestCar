@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 375" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="srv2Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181926" />
+      <stop offset="100%" stop-color="#0a0b12" />
+    </linearGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <pattern id="srvGrid2" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.03" />
+    </pattern>
+  </defs>
+
+  <rect width="600" height="375" rx="14" fill="url(#srv2Bg)" />
+  <rect width="600" height="375" rx="14" fill="url(#srvGrid2)" />
+  <rect width="598" height="373" x="1" y="1" rx="13" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1" />
+
+  <!-- Speed / Supercar Vector Geometry -->
+  <g transform="translate(300, 150)">
+    <!-- Aerodynamic Speed Wings & Airflow -->
+    <path d="M -180 -10 Q -90 -45 50 -35 Q 160 -25 210 20" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.4" fill="none" />
+    <path d="M -160 15 Q -60 -20 80 -10 Q 180 0 200 35" stroke="#fbbf24" stroke-width="1.5" stroke-opacity="0.3" fill="none" />
+
+    <!-- Sleek Supercar Profile -->
+    <path d="M -150 25 
+             C -110 20, -70 5, -20 -15
+             C 25 -32, 70 -30, 110 -15
+             C 140 -3, 165 15, 180 25
+             L -150 25 Z" 
+          fill="#1f2334" stroke="url(#goldAccent)" stroke-width="2" />
+    
+    <!-- Wheels -->
+    <circle cx="-90" cy="25" r="18" fill="#0c0e17" stroke="#fbbf24" stroke-width="1.5" />
+    <circle cx="120" cy="25" r="18" fill="#0c0e17" stroke="#fbbf24" stroke-width="1.5" />
+    <circle cx="-90" cy="25" r="6" fill="#f59e0b" />
+    <circle cx="120" cy="25" r="6" fill="#f59e0b" />
+
+    <!-- Tachometer / RPM Arc Badge in background -->
+    <path d="M -70 -50 A 80 80 0 0 1 70 -50" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 6" opacity="0.6" />
+    <polygon points="0,-40 -5,-70 5,-70" fill="#fbbf24" />
+  </g>
+
+  <!-- Metrics Ribbon -->
+  <g transform="translate(300, 260)" text-anchor="middle">
+    <text font-family="'InvestSans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">
+      FUNDO DE SUPERCARROS &amp; RARIDADES
+    </text>
+    <text y="22" font-family="'InvestSans', system-ui, sans-serif" font-size="11" fill="#94a3b8">
+      Apreciação em Moeda Forte // Ferrari, Porsche GT, McLaren
+    </text>
+  </g>
+
+  <!-- Bottom Placeholder Label -->
+  <g transform="translate(300, 330)" text-anchor="middle">
+    <rect x="-150" y="-16" width="300" height="30" rx="15" fill="#1e293b" fill-opacity="0.8" stroke="#ffffff" stroke-opacity="0.1" />
+    <circle cx="-125" cy="-1" r="4" fill="#fbbf24" />
+    <text x="8" y="3" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#e2e8f0" letter-spacing="0.8">
+      PLACEHOLDER: SERVICES-2.SVG
+    </text>
+  </g>
+</svg>

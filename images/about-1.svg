@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 525" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="aboutBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141923" />
+      <stop offset="100%" stop-color="#0a0d14" />
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <pattern id="aboutGrid" width="35" height="35" patternUnits="userSpaceOnUse">
+      <path d="M 35 0 L 0 0 0 35" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.03" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="525" rx="16" fill="url(#aboutBg)" />
+  <rect width="700" height="525" rx="16" fill="url(#aboutGrid)" />
+  <rect width="698" height="523" x="1" y="1" rx="15" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1" />
+
+  <!-- Architectural Blueprint Elements -->
+  <g stroke="#475569" stroke-dasharray="4 4" stroke-width="1" opacity="0.5">
+    <line x1="60" y1="262" x2="640" y2="262" />
+    <line x1="350" y1="50" x2="350" y2="475" />
+    <circle cx="350" cy="240" r="140" fill="none" />
+    <circle cx="350" cy="240" r="190" fill="none" />
+  </g>
+
+  <!-- Central Vault / Asset Security Iconography -->
+  <g transform="translate(350, 230)">
+    <!-- Hexagonal Enclosure -->
+    <polygon points="0,-100 86,-50 86,50 0,100 -86,50 -86,-50" fill="#131c2d" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.7" />
+    
+    <!-- Inner Safe Dial & Car Outline -->
+    <circle cx="0" cy="0" r="60" fill="#0b111c" stroke="#64748b" stroke-width="2" />
+    <circle cx="0" cy="0" r="48" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="8 4" />
+    
+    <!-- Lock / Precision Vector -->
+    <path d="M -16 6 L -16 -6 C -16 -15 -8 -22 0 -22 C 8 -22 16 -15 16 -6 L 16 6" fill="none" stroke="#f8fafc" stroke-width="3" stroke-linecap="round" />
+    <rect x="-22" y="2" width="44" height="32" rx="6" fill="#2563eb" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="0" cy="16" r="4" fill="#ffffff" />
+    <line x1="0" y1="20" x2="0" y2="25" stroke="#ffffff" stroke-width="2" />
+  </g>
+
+  <!-- Satellite Feature Indicators -->
+  <!-- Top Left: Laudo Técnico -->
+  <g transform="translate(140, 130)">
+    <rect x="-80" y="-28" width="160" height="56" rx="10" fill="#161f30" stroke="#334155" stroke-width="1" />
+    <circle cx="-55" cy="0" r="14" fill="#0284c7" fill-opacity="0.2" />
+    <path d="M -60 0 L -57 4 L -50 -4" stroke="#38bdf8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="-30" y="-4" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f8fafc">LAUDO PERICIAL</text>
+    <text x="-30" y="12" font-family="'InvestSans', system-ui, sans-serif" font-size="10" fill="#94a3b8">100% Certificado</text>
+  </g>
+
+  <!-- Top Right: Seguro Total -->
+  <g transform="translate(560, 130)">
+    <rect x="-80" y="-28" width="160" height="56" rx="10" fill="#161f30" stroke="#334155" stroke-width="1" />
+    <circle cx="-55" cy="0" r="14" fill="#10b981" fill-opacity="0.2" />
+    <path d="M -59 0 L -55 5 L -49 -5" stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="-30" y="-4" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f8fafc">APÓLICE GLOBAL</text>
+    <text x="-30" y="12" font-family="'InvestSans', system-ui, sans-serif" font-size="10" fill="#94a3b8">Cobertura Integral</text>
+  </g>
+
+  <!-- Bottom Left: Compliance CVM -->
+  <g transform="translate(140, 360)">
+    <rect x="-80" y="-28" width="160" height="56" rx="10" fill="#161f30" stroke="#334155" stroke-width="1" />
+    <circle cx="-55" cy="0" r="14" fill="#6366f1" fill-opacity="0.2" />
+    <text x="-58" y="4" font-family="'InvestSans', sans-serif" font-size="10" font-weight="bold" fill="#818cf8">CVM</text>
+    <text x="-30" y="-4" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f8fafc">ESTRUTURA LEGAL</text>
+    <text x="-30" y="12" font-family="'InvestSans', system-ui, sans-serif" font-size="10" fill="#94a3b8">SPE &amp; Alienação</text>
+  </g>
+
+  <!-- Bottom Right: Monitoramento IoT -->
+  <g transform="translate(560, 360)">
+    <rect x="-80" y="-28" width="160" height="56" rx="10" fill="#161f30" stroke="#334155" stroke-width="1" />
+    <circle cx="-55" cy="0" r="14" fill="#f59e0b" fill-opacity="0.2" />
+    <circle cx="-55" cy="0" r="4" fill="#f59e0b" />
+    <text x="-30" y="-4" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f8fafc">TELEMETRIA 24/7</text>
+    <text x="-30" y="12" font-family="'InvestSans', system-ui, sans-serif" font-size="10" fill="#94a3b8">GPS &amp; Garagem Segura</text>
+  </g>
+
+  <!-- Subtle placeholder badge at bottom -->
+  <g transform="translate(350, 465)" text-anchor="middle">
+    <rect x="-160" y="-18" width="320" height="32" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#ffffff" stroke-opacity="0.1" />
+    <circle cx="-135" cy="-2" r="4" fill="#38bdf8" />
+    <text x="8" y="2" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#e2e8f0" letter-spacing="0.8">
+      PLACEHOLDER: ABOUT-1.SVG (4:3)
+    </text>
+  </g>
+</svg>

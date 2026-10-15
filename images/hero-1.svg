@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141923" />
+      <stop offset="50%" stop-color="#0f131a" />
+      <stop offset="100%" stop-color="#090b0f" />
+    </linearGradient>
+    <linearGradient id="carGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#60a5fa" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="hudLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0" />
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </linearGradient>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.04" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="520" rx="16" fill="url(#heroBg)" />
+  <rect width="800" height="520" rx="16" fill="url(#gridPattern)" />
+  <rect width="798" height="518" x="1" y="1" rx="15" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1" />
+
+  <!-- Ambient Glow Behind Car Silhouette -->
+  <ellipse cx="400" cy="310" rx="260" ry="90" fill="#38bdf8" fill-opacity="0.08" filter="blur(30px)" />
+
+  <!-- Technical Crosshairs & HUD Elements -->
+  <g opacity="0.4" stroke="#94a3b8" stroke-width="1">
+    <path d="M 40 40 L 70 40 M 40 40 L 40 70" />
+    <path d="M 760 40 L 730 40 M 760 40 L 760 70" />
+    <path d="M 40 480 L 70 480 M 40 480 L 40 450" />
+    <path d="M 760 480 L 730 480 M 760 480 L 760 450" />
+  </g>
+
+  <!-- Telemetry Data Overlays -->
+  <g font-family="monospace" font-size="11" fill="#94a3b8" opacity="0.75">
+    <text x="50" y="70">ASSET_ID: #IC-992-GT</text>
+    <text x="50" y="90">VALUATION: R$ 2.450.000,00</text>
+    <text x="630" y="70">STATUS: CUSTODIADO</text>
+    <text x="630" y="90">ANNUAL_YIELD: 19.8% a.a.</text>
+  </g>
+
+  <!-- Sleek Supercar Silhouette (Stylized Isometric/Side Profile Vector) -->
+  <g transform="translate(100, 160)">
+    <!-- Ground Shadow -->
+    <ellipse cx="300" cy="180" rx="260" ry="14" fill="#000000" fill-opacity="0.6" />
+    
+    <!-- Floor Grid Reflection Line -->
+    <line x1="40" y1="180" x2="560" y2="180" stroke="url(#hudLine)" stroke-width="2" />
+
+    <!-- Car Body Flow Line -->
+    <path d="M 60 160 
+             C 100 155, 140 145, 180 135
+             C 210 128, 250 85, 310 82
+             C 380 80, 430 115, 470 128
+             C 505 138, 540 145, 550 155
+             C 545 168, 480 170, 450 170
+             C 435 150, 410 135, 380 135
+             C 350 135, 325 150, 310 170
+             L 210 170
+             C 195 150, 170 135, 140 135
+             C 110 135, 85 150, 70 170
+             Z" 
+          fill="#1e2638" stroke="url(#carGlow)" stroke-width="2" />
+
+    <!-- Cabin Glass / Roof Arc -->
+    <path d="M 235 125 
+             C 270 95, 320 92, 375 92
+             C 415 92, 435 110, 455 125
+             Z" 
+          fill="#0f172a" stroke="#60a5fa" stroke-width="1.5" stroke-opacity="0.8" />
+
+    <!-- Wheels (Front & Rear) -->
+    <!-- Rear Wheel -->
+    <circle cx="140" cy="165" r="32" fill="#090d16" stroke="#475569" stroke-width="3" />
+    <circle cx="140" cy="165" r="20" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="140" cy="165" r="7" fill="#64748b" />
+    <!-- Front Wheel -->
+    <circle cx="380" cy="165" r="32" fill="#090d16" stroke="#475569" stroke-width="3" />
+    <circle cx="380" cy="165" r="20" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="380" cy="165" r="7" fill="#64748b" />
+
+    <!-- Aerodynamic Accent Curves -->
+    <path d="M 200 135 Q 260 140 330 130" stroke="#94a3b8" stroke-width="1" stroke-opacity="0.4" fill="none" />
+    <path d="M 445 130 L 490 145" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+    <circle cx="490" cy="145" r="3" fill="#38bdf8" />
+  </g>
+
+  <!-- Central Placeholder Tag & Badge -->
+  <g transform="translate(400, 440)" text-anchor="middle">
+    <rect x="-170" y="-22" width="340" height="36" rx="18" fill="#1e293b" fill-opacity="0.7" stroke="#ffffff" stroke-opacity="0.15" />
+    <circle cx="-145" cy="-4" r="5" fill="#38bdf8" />
+    <text x="10" y="1" font-family="'InvestSans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#f8fafc" letter-spacing="1">
+      PLACEHOLDER: HERO-1.SVG (16:9)
+    </text>
+  </g>
+</svg>

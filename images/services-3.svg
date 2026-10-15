@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 375" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="srv3Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111f22" />
+      <stop offset="100%" stop-color="#090f11" />
+    </linearGradient>
+    <linearGradient id="emeraldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <pattern id="srvGrid3" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.03" />
+    </pattern>
+  </defs>
+
+  <rect width="600" height="375" rx="14" fill="url(#srv3Bg)" />
+  <rect width="600" height="375" rx="14" fill="url(#srvGrid3)" />
+  <rect width="598" height="373" x="1" y="1" rx="13" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1" />
+
+  <!-- Shared Ownership Ecosystem Iconography -->
+  <g transform="translate(300, 150)">
+    <!-- Central Node Circle -->
+    <circle cx="0" cy="0" r="42" fill="#064e3b" fill-opacity="0.3" stroke="url(#emeraldAccent)" stroke-width="2" />
+    <!-- Key / Asset Symbol inside -->
+    <circle cx="-6" cy="-6" r="12" fill="none" stroke="#34d399" stroke-width="2" />
+    <path d="M 3 3 L 16 16 M 11 11 L 14 8 M 14 14 L 17 11" stroke="#34d399" stroke-width="2" stroke-linecap="round" />
+
+    <!-- 4 Connected Nodes / Members -->
+    <!-- Top -->
+    <line x1="0" y1="-42" x2="0" y2="-80" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4" />
+    <circle cx="0" cy="-80" r="14" fill="#132a26" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="0" cy="-80" r="5" fill="#34d399" />
+
+    <!-- Right -->
+    <line x1="42" y1="0" x2="100" y2="0" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4" />
+    <circle cx="100" cy="0" r="14" fill="#132a26" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="100" cy="0" r="5" fill="#34d399" />
+
+    <!-- Bottom -->
+    <line x1="0" y1="42" x2="0" y2="75" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4" />
+    <circle cx="0" cy="75" r="14" fill="#132a26" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="0" cy="75" r="5" fill="#34d399" />
+
+    <!-- Left -->
+    <line x1="-42" y1="0" x2="-100" y2="0" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4" />
+    <circle cx="-100" cy="0" r="14" fill="#132a26" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="-100" cy="0" r="5" fill="#34d399" />
+  </g>
+
+  <!-- Metrics Ribbon -->
+  <g transform="translate(300, 260)" text-anchor="middle">
+    <text font-family="'InvestSans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">
+      CLUBE DE COMPARTILHAMENTO &amp; RENDA
+    </text>
+    <text y="22" font-family="'InvestSans', system-ui, sans-serif" font-size="11" fill="#94a3b8">
+      Fracionamento Inteligente // Uso Pessoal + Dividendos de Locação
+    </text>
+  </g>
+
+  <!-- Bottom Placeholder Label -->
+  <g transform="translate(300, 330)" text-anchor="middle">
+    <rect x="-150" y="-16" width="300" height="30" rx="15" fill="#1e293b" fill-opacity="0.8" stroke="#ffffff" stroke-opacity="0.1" />
+    <circle cx="-125" cy="-1" r="4" fill="#10b981" />
+    <text x="8" y="3" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#e2e8f0" letter-spacing="0.8">
+      PLACEHOLDER: SERVICES-3.SVG
+    </text>
+  </g>
+</svg>

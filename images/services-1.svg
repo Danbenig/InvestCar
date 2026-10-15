@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 375" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="srv1Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141a27" />
+      <stop offset="100%" stop-color="#0a0d14" />
+    </linearGradient>
+    <linearGradient id="fleetAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <pattern id="srvGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.03" />
+    </pattern>
+  </defs>
+
+  <rect width="600" height="375" rx="14" fill="url(#srv1Bg)" />
+  <rect width="600" height="375" rx="14" fill="url(#srvGrid)" />
+  <rect width="598" height="373" x="1" y="1" rx="13" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1" />
+
+  <!-- Fleet / Corporate Mobility Vector Art -->
+  <g transform="translate(300, 150)">
+    <!-- Central Fleet Pods in Staggered Formation -->
+    <!-- Rear Pod Left -->
+    <rect x="-160" y="-30" width="80" height="45" rx="8" fill="#182338" stroke="#334155" stroke-width="1.5" />
+    <line x1="-150" y1="-10" x2="-90" y2="-10" stroke="#475569" stroke-width="2" />
+    
+    <!-- Rear Pod Right -->
+    <rect x="80" y="-30" width="80" height="45" rx="8" fill="#182338" stroke="#334155" stroke-width="1.5" />
+    <line x1="90" y1="-10" x2="150" y2="-10" stroke="#475569" stroke-width="2" />
+
+    <!-- Leading Center Executive Sedan/SUV Silhouette -->
+    <rect x="-65" y="-50" width="130" height="75" rx="12" fill="#1d283f" stroke="url(#fleetAccent)" stroke-width="2" />
+    <circle cx="-35" cy="10" r="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="35" cy="10" r="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <!-- Windshield -->
+    <path d="M -40 -25 L -20 -40 L 20 -40 L 40 -25 Z" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+    <line x1="-50" y1="2" x2="50" y2="2" stroke="#38bdf8" stroke-width="1.5" />
+    
+    <!-- Ground Radar Rings -->
+    <ellipse cx="0" cy="45" rx="180" ry="25" stroke="#38bdf8" stroke-width="1" stroke-dasharray="6 6" opacity="0.3" fill="none" />
+    <ellipse cx="0" cy="45" rx="90" ry="12" stroke="#38bdf8" stroke-width="1.5" opacity="0.5" fill="none" />
+  </g>
+
+  <!-- Metrics Ribbon -->
+  <g transform="translate(300, 260)" text-anchor="middle">
+    <text font-family="'InvestSans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">
+      FROTAS EXECUTIVAS CORPORATIVAS
+    </text>
+    <text y="22" font-family="'InvestSans', system-ui, sans-serif" font-size="11" fill="#94a3b8">
+      Contratos de Longo Prazo // Previsibilidade Mensal 1.6% a.m.
+    </text>
+  </g>
+
+  <!-- Bottom Placeholder Label -->
+  <g transform="translate(300, 330)" text-anchor="middle">
+    <rect x="-150" y="-16" width="300" height="30" rx="15" fill="#1e293b" fill-opacity="0.8" stroke="#ffffff" stroke-opacity="0.1" />
+    <circle cx="-125" cy="-1" r="4" fill="#38bdf8" />
+    <text x="8" y="3" font-family="'InvestSans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#e2e8f0" letter-spacing="0.8">
+      PLACEHOLDER: SERVICES-1.SVG
+    </text>
+  </g>
+</svg>

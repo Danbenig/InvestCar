@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="t1Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="t1Ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle with Glow -->
+  <rect width="240" height="240" rx="120" fill="url(#t1Bg)" />
+  <circle cx="120" cy="120" r="118" stroke="url(#t1Ring)" stroke-width="2" stroke-opacity="0.6" />
+
+  <!-- Geometric Investor Profile Silhouette -->
+  <g transform="translate(120, 110)">
+    <!-- Head -->
+    <circle cx="0" cy="-25" r="32" fill="#334155" stroke="#475569" stroke-width="2" />
+    <!-- Shoulders / Suit -->
+    <path d="M -55 55 C -55 20, -35 10, 0 10 C 35 10, 55 20, 55 55 Z" fill="#1e293b" stroke="#475569" stroke-width="2" />
+    <!-- Lapel / Tie detail -->
+    <path d="M -15 10 L 0 35 L 15 10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <polygon points="0,15 -6,45 0,55 6,45" fill="#38bdf8" fill-opacity="0.7" />
+  </g>
+
+  <!-- Verified Badge -->
+  <circle cx="175" cy="170" r="16" fill="#0284c7" stroke="#0f172a" stroke-width="3" />
+  <path d="M 169 170 L 173 174 L 181 166" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Subtle Bottom Placeholder Indicator -->
+  <g transform="translate(120, 215)" text-anchor="middle">
+    <rect x="-80" y="-10" width="160" height="20" rx="10" fill="#0b0f19" fill-opacity="0.9" stroke="#ffffff" stroke-opacity="0.1" />
+    <text y="4" font-family="'InvestSans', system-ui, sans-serif" font-size="9" font-weight="600" fill="#cbd5e1" letter-spacing="0.5">
+      TESTIMONIALS-1.SVG
+    </text>
+  </g>
+</svg>
