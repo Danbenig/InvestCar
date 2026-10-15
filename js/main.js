@@ -981,204 +981,247 @@ $(document).ready(function () {
     // Cancela qualquer tween anterior se houver
     gsap.killTweensOf(track);
 
-    // 1. Divide os textos em palavras e caracteres (.char)
-    const charElements = [];
-    const iconElements = [];
+    // Salva o texto original das frases para garantir integridade caso alterne entre resoluções
     const phrases = track.querySelectorAll(".marquee-phrase");
-
     phrases.forEach((phrase) => {
-      const rawText = phrase.textContent.trim();
-      phrase.innerHTML = "";
+      if (!phrase.dataset.rawText) {
+        phrase.dataset.rawText = phrase.textContent.trim();
+      }
+    });
 
-      const words = rawText.split(/\s+/);
-      words.forEach((word, wIdx) => {
-        const wordSpan = document.createElement("span");
-        wordSpan.className = "marquee-word";
-        wordSpan.style.display = "inline-block";
-        wordSpan.style.whiteSpace = "nowrap";
+    const mm = gsap.matchMedia();
 
-        for (let i = 0; i < word.length; i++) {
-          const charSpan = document.createElement("span");
-          charSpan.className = "char";
-          charSpan.style.display = "inline-block";
-          charSpan.style.willChange = "transform, opacity";
-          charSpan.textContent = word[i];
-          charSpan.dataset.assembled = "false";
-          wordSpan.appendChild(charSpan);
-          charElements.push(charSpan);
-        }
+    // MOBILE (<= 960px): Apenas loop contínuo suave e fluido,
+    // sem divisão em caracteres individuais e sem ticker de formação de letras (elimina queda de frames).
+    mm.add("(max-width: 960px)", () => {
+      phrases.forEach((phrase) => {
+        phrase.textContent = phrase.dataset.rawText;
+      });
+      track.querySelectorAll(".marquee-linear-icon").forEach((icon) => {
+        icon.style.opacity = "1";
+        icon.style.transform = "none";
+      });
 
-        phrase.appendChild(wordSpan);
+      const mobileTween = gsap.to(track, {
+        xPercent: -50,
+        ease: "none",
+        duration: 35,
+        repeat: -1
+      });
 
-        if (wIdx < words.length - 1) {
-          const space = document.createTextNode("\u00A0");
-          phrase.appendChild(space);
+      return () => {
+        mobileTween.kill();
+      };
+    });
+
+    // DESKTOP (> 960px): Efeito cinematográfico original com formação dinâmica de caracteres e ícones
+    mm.add("(min-width: 961px)", () => {
+      // 1. Divide os textos em palavras e caracteres (.char)
+      const charElements = [];
+      const iconElements = [];
+
+      phrases.forEach((phrase) => {
+        const rawText = phrase.dataset.rawText || phrase.textContent.trim();
+        phrase.innerHTML = "";
+
+        const words = rawText.split(/\s+/);
+        words.forEach((word, wIdx) => {
+          const wordSpan = document.createElement("span");
+          wordSpan.className = "marquee-word";
+          wordSpan.style.display = "inline-block";
+          wordSpan.style.whiteSpace = "nowrap";
+
+          for (let i = 0; i < word.length; i++) {
+            const charSpan = document.createElement("span");
+            charSpan.className = "char";
+            charSpan.style.display = "inline-block";
+            charSpan.style.willChange = "transform, opacity";
+            charSpan.textContent = word[i];
+            charSpan.dataset.assembled = "false";
+            wordSpan.appendChild(charSpan);
+            charElements.push(charSpan);
+          }
+
+          phrase.appendChild(wordSpan);
+
+          if (wIdx < words.length - 1) {
+            const space = document.createTextNode("\u00A0");
+            phrase.appendChild(space);
+          }
+        });
+      });
+
+      const icons = track.querySelectorAll(".marquee-linear-icon");
+      icons.forEach((icon) => {
+        icon.dataset.assembled = "false";
+        iconElements.push(icon);
+      });
+
+      // 2. Movimento 100% linear, contínuo e autônomo em loop infinito
+      const desktopTween = gsap.to(track, {
+        xPercent: -50,
+        ease: "none",
+        duration: 38, // Movimento fluido e elegante
+        repeat: -1
+      });
+
+      // 3. Ponto de formação calibrado a 200px do canto direito da tela
+      const RIGHT_CORNER_OFFSET = 200; // 200px do canto da tela direita (clip content boundary)
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const initialFormationBoundary = wrapperRect.right - RIGHT_CORNER_OFFSET;
+      const leftEdge = wrapperRect.left;
+
+      const initialCharsInView = [];
+      charElements.forEach((char) => {
+        const rect = char.getBoundingClientRect();
+        if (rect.left <= initialFormationBoundary && rect.right >= leftEdge) {
+          char.dataset.assembled = "true";
+          initialCharsInView.push(char);
+        } else if (rect.left > initialFormationBoundary) {
+          char.dataset.assembled = "false";
+          char.style.opacity = "0";
         }
       });
-    });
 
-    const icons = track.querySelectorAll(".marquee-linear-icon");
-    icons.forEach((icon) => {
-      icon.dataset.assembled = "false";
-      iconElements.push(icon);
-    });
-
-    // 2. Movimento 100% linear, contínuo e autônomo em loop infinito
-    gsap.to(track, {
-      xPercent: -50,
-      ease: "none",
-      duration: 38, // Movimento fluido e elegante
-      repeat: -1
-    });
-
-    // 3. Ponto de formação calibrado a 200px do canto direito da tela
-    const RIGHT_CORNER_OFFSET = 200; // 200px do canto da tela direita (clip content boundary)
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const initialFormationBoundary = wrapperRect.right - RIGHT_CORNER_OFFSET;
-    const leftEdge = wrapperRect.left;
-
-    const initialCharsInView = [];
-    charElements.forEach((char) => {
-      const rect = char.getBoundingClientRect();
-      if (rect.left <= initialFormationBoundary && rect.right >= leftEdge) {
-        char.dataset.assembled = "true";
-        initialCharsInView.push(char);
-      } else if (rect.left > initialFormationBoundary) {
-        char.dataset.assembled = "false";
-        char.style.opacity = "0";
+      if (initialCharsInView.length > 0) {
+        gsap.fromTo(initialCharsInView, 
+          {
+            yPercent: () => gsap.utils.random(-140, 140),
+            rotation: () => gsap.utils.random(-20, 20),
+            opacity: 0
+          },
+          {
+            yPercent: 0,
+            rotation: 0,
+            opacity: 1,
+            duration: 0.85,
+            stagger: 0.012,
+            ease: "back.out(1.3)"
+          }
+        );
       }
-    });
 
-    if (initialCharsInView.length > 0) {
-      gsap.fromTo(initialCharsInView, 
-        {
-          yPercent: () => gsap.utils.random(-140, 140),
-          rotation: () => gsap.utils.random(-20, 20),
-          opacity: 0
-        },
-        {
-          yPercent: 0,
-          rotation: 0,
-          opacity: 1,
-          duration: 0.85,
-          stagger: 0.012,
-          ease: "back.out(1.3)"
+      iconElements.forEach((icon) => {
+        const rect = icon.getBoundingClientRect();
+        if (rect.left <= initialFormationBoundary && rect.right >= leftEdge) {
+          icon.dataset.assembled = "true";
+        } else if (rect.left > initialFormationBoundary) {
+          icon.dataset.assembled = "false";
+          icon.style.opacity = "0";
         }
-      );
-    }
+      });
 
-    iconElements.forEach((icon) => {
-      const rect = icon.getBoundingClientRect();
-      if (rect.left <= initialFormationBoundary && rect.right >= leftEdge) {
-        icon.dataset.assembled = "true";
-      } else if (rect.left > initialFormationBoundary) {
-        icon.dataset.assembled = "false";
-        icon.style.opacity = "0";
-      }
-    });
+      // 4. Watcher contínuo: letras e ícones se formando a exatamente 200px do canto direito
+      let checkCounter = 0;
+      const tickerCallback = () => {
+        // Executa a cada 2 frames para máxima performance (~30fps de verificação)
+        if (++checkCounter % 2 !== 0) return;
 
-    // 4. Watcher contínuo: letras e ícones se formando a exatamente 200px do canto direito
-    let checkCounter = 0;
-    const tickerCallback = () => {
-      // Executa a cada 2 frames para máxima performance (~30fps de verificação)
-      if (++checkCounter % 2 !== 0) return;
+        const currentWrapperRect = wrapper.getBoundingClientRect();
+        const R = currentWrapperRect.right;
+        const formationLine = R - RIGHT_CORNER_OFFSET; // Linha de montagem a 200px do canto direito
 
-      const currentWrapperRect = wrapper.getBoundingClientRect();
-      const R = currentWrapperRect.right;
-      const formationLine = R - RIGHT_CORNER_OFFSET; // Linha de montagem a 200px do canto direito
+        // Executa de forma contínua desde a abertura do site, mesmo fora do campo de visão da tela
+        // Isso evita que frases parem na metade ou sumam quando o usuário estiver em outras seções
+        for (let i = 0; i < charElements.length; i++) {
+          const char = charElements[i];
+          const rect = char.getBoundingClientRect();
 
-      // Executa de forma contínua desde a abertura do site, mesmo fora do campo de visão da tela
-      // Isso evita que frases parem na metade ou sumam quando o usuário estiver em outras seções
-      for (let i = 0; i < charElements.length; i++) {
-        const char = charElements[i];
-        const rect = char.getBoundingClientRect();
-
-        // Se cruzou a linha de montagem (200px da margem direita) e ainda não foi montado:
-        if (rect.left <= formationLine && char.dataset.assembled !== "true") {
-          char.dataset.assembled = "true";
-          if (rect.left >= formationLine - 160) {
-            gsap.fromTo(char,
-              {
-                yPercent: gsap.utils.random(-140, 140),
-                rotation: gsap.utils.random(-20, 20),
-                opacity: 0,
-                scale: 0.72
-              },
-              {
+          // Se cruzou a linha de montagem (200px da margem direita) e ainda não foi montado:
+          if (rect.left <= formationLine && char.dataset.assembled !== "true") {
+            char.dataset.assembled = "true";
+            if (rect.left >= formationLine - 160) {
+              gsap.fromTo(char,
+                {
+                  yPercent: gsap.utils.random(-140, 140),
+                  rotation: gsap.utils.random(-20, 20),
+                  opacity: 0,
+                  scale: 0.72
+                },
+                {
+                  yPercent: 0,
+                  rotation: 0,
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.75,
+                  ease: "back.out(1.3)",
+                  overwrite: "auto"
+                }
+              );
+            } else {
+              // Se já cruzou além da margem imediata, fixa imediatamente visível e estável
+              gsap.set(char, {
                 yPercent: 0,
                 rotation: 0,
                 opacity: 1,
                 scale: 1,
-                duration: 0.75,
-                ease: "back.out(1.3)",
                 overwrite: "auto"
-              }
-            );
-          } else {
-            // Se já cruzou além da margem imediata, fixa imediatamente visível e estável
-            gsap.set(char, {
-              yPercent: 0,
-              rotation: 0,
-              opacity: 1,
-              scale: 1,
-              overwrite: "auto"
-            });
+              });
+            }
+          }
+          // Enquanto estiver na margem direita antes dos 200px: permanece invisível
+          else if (rect.left > formationLine && char.dataset.assembled !== "true") {
+            char.style.opacity = "0";
+          }
+          // Se voltou para fora da tela à direita (por causa do reset no loop -50% a 0%):
+          else if (rect.left > R + 60) {
+            char.dataset.assembled = "false";
+            char.style.opacity = "0";
           }
         }
-        // Enquanto estiver na margem direita antes dos 200px: permanece invisível
-        else if (rect.left > formationLine && char.dataset.assembled !== "true") {
-          char.style.opacity = "0";
-        }
-        // Se voltou para fora da tela à direita (por causa do reset no loop -50% a 0%):
-        else if (rect.left > R + 60) {
-          char.dataset.assembled = "false";
-          char.style.opacity = "0";
-        }
-      }
 
-      // Verifica ícones separadores de forma contínua
-      for (let j = 0; j < iconElements.length; j++) {
-        const icon = iconElements[j];
-        const rect = icon.getBoundingClientRect();
+        // Verifica ícones separadores de forma contínua
+        for (let j = 0; j < iconElements.length; j++) {
+          const icon = iconElements[j];
+          const rect = icon.getBoundingClientRect();
 
-        if (rect.left <= formationLine && icon.dataset.assembled !== "true") {
-          icon.dataset.assembled = "true";
-          if (rect.left >= formationLine - 160) {
-            gsap.fromTo(icon,
-              {
-                scale: 0.25,
-                rotation: gsap.utils.random(-40, 40),
-                opacity: 0
-              },
-              {
+          if (rect.left <= formationLine && icon.dataset.assembled !== "true") {
+            icon.dataset.assembled = "true";
+            if (rect.left >= formationLine - 160) {
+              gsap.fromTo(icon,
+                {
+                  scale: 0.25,
+                  rotation: gsap.utils.random(-40, 40),
+                  opacity: 0
+                },
+                {
+                  scale: 1,
+                  rotation: 0,
+                  opacity: 1,
+                  duration: 0.85,
+                  ease: "back.out(1.5)",
+                  overwrite: "auto"
+                }
+              );
+            } else {
+              gsap.set(icon, {
                 scale: 1,
                 rotation: 0,
                 opacity: 1,
-                duration: 0.85,
-                ease: "back.out(1.5)",
                 overwrite: "auto"
-              }
-            );
-          } else {
-            gsap.set(icon, {
-              scale: 1,
-              rotation: 0,
-              opacity: 1,
-              overwrite: "auto"
-            });
+              });
+            }
+          }
+          else if (rect.left > formationLine && icon.dataset.assembled !== "true") {
+            icon.style.opacity = "0";
+          }
+          else if (rect.left > R + 60) {
+            icon.dataset.assembled = "false";
+            icon.style.opacity = "0";
           }
         }
-        else if (rect.left > formationLine && icon.dataset.assembled !== "true") {
-          icon.style.opacity = "0";
-        }
-        else if (rect.left > R + 60) {
-          icon.dataset.assembled = "false";
-          icon.style.opacity = "0";
-        }
-      }
-    };
+      };
 
-    gsap.ticker.add(tickerCallback);
+      gsap.ticker.add(tickerCallback);
+
+      return () => {
+        gsap.ticker.remove(tickerCallback);
+        desktopTween.kill();
+        phrases.forEach((phrase) => {
+          phrase.textContent = phrase.dataset.rawText;
+        });
+      };
+    });
   }
 
   /* ==========================================================================

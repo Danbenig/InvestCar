@@ -1613,7 +1613,7 @@ button {
   .hero-section {
     height: auto !important;
     min-height: unset !important;
-    padding-top: 140px;
+    padding-top: 175px; /* Aumentado em 25% para afastar do header flutuante no celular */
     padding-bottom: 50px;
     overflow: visible;
   }
@@ -1727,7 +1727,7 @@ button {
 
 @media (max-width: 480px) {
   .hero-section {
-    padding-top: 120px;
+    padding-top: 175px; /* Mantém 175px para afastar com folga da navbar flutuante no celular */
     padding-bottom: 35px;
   }
   .hero-title {
@@ -4132,34 +4132,57 @@ button {
     transition: none !important;
   }
 
-  /* Desativa efeitos de toque/hover nos cards de passo-a-passo no mobile */
+  /* Remoção de gemini-border e halos luminosos nos cards de etapas no mobile */
+  .passo-card-slide.gemini-border::before,
+  .passo-card-slide::before {
+    display: none !important;
+    content: none !important;
+    animation: none !important;
+  }
+  .passo-card-slide.gemini-border::after,
+  .passo-card-slide::after {
+    display: none !important;
+    content: none !important;
+    animation: none !important;
+    filter: none !important;
+    opacity: 0 !important;
+  }
   .passo-card-slide,
   .passo-card-slide:hover,
   .passo-card-slide:active {
-    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.65), 0 0 35px rgba(17, 31, 241, 0.2) !important;
+    background: linear-gradient(150deg, rgba(10, 26, 48, 0.95) 0%, rgba(5, 12, 26, 0.98) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5) !important;
     transform: none !important;
     transition: none !important;
   }
-  .passo-card-slide:hover::after,
-  .passo-card-slide:active::after {
-    opacity: 0.65 !important;
-    filter: blur(14px) !important;
-    transition: none !important;
-  }
+
+  /* Remoção de efeito de brilho/luz e pulso na numeração e tag de etapa no mobile */
+  .passo-card-num-badge,
+  .passo-card-category,
   .passo-card-num-badge:hover,
   .passo-card-category:hover,
   .passo-card-num-badge:active,
   .passo-card-category:active {
+    animation: none !important;
+    background: #ffffff !important;
+    color: #060c18 !important;
+    border: 1px solid #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     transform: none !important;
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.25), 0 0 10px rgba(255, 255, 255, 0.15) !important;
+    transition: none !important;
   }
+  .passo-card-num-badge::after,
+  .passo-card-category::after,
   .passo-card-num-badge:hover::after,
   .passo-card-category:hover::after,
   .passo-card-num-badge:active::after,
   .passo-card-category:active::after {
-    opacity: 0.25 !important;
-    filter: blur(8px) !important;
+    display: none !important;
+    content: none !important;
+    animation: none !important;
+    filter: none !important;
+    opacity: 0 !important;
   }
 }
 
