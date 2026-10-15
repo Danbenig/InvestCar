@@ -542,11 +542,12 @@ $(document).ready(function () {
 
   /* ==========================================================================
      MÓDULO: MOUSE TILT 3D DINÂMICO NOS CARDS (JQUERY)
-     - Inclinação 3D proporcional ao ponteiro do mouse
+     - Inclinação 3D proporcional ao ponteiro do mouse (apenas no desktop > 960px)
      - Camada adicional preservando bordas Gemini e demais estilos existentes
      ========================================================================== */
   function initCardTilt3D() {
     $('.card-item').off('mousemove mouseleave').on('mousemove', function (e) {
+      if (window.innerWidth <= 960) return;
       const o = $(this).offset();
       const x = e.pageX - o.left - $(this).outerWidth() / 2;
       const y = e.pageY - o.top - $(this).outerHeight() / 2;
@@ -556,6 +557,7 @@ $(document).ready(function () {
         'transform': `perspective(1000px) rotateY(${x * 0.075}deg) rotateX(${-y * 0.075}deg) scale(1.03)`
       });
     }).on('mouseleave', function () {
+      if (window.innerWidth <= 960) return;
       $(this).css({
         'transition': 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
         'transform': 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)'
@@ -565,8 +567,9 @@ $(document).ready(function () {
 
   /* ==========================================================================
      MÓDULO: BOTÕES MAGNÉTICOS GSAP (NO WIGGLE, OVERWRITE: TRUE)
-     - Botão: 50% mais leve (mantém estabilidade)
-     - Fonte interna: puxada com mais força (efeito parallax) nos limites do botão
+     - Desktop (> 960px): Atração suave do corpo do botão e texto interno ao mouse
+     - Mobile (<= 960px): Sem puxão magnético (botões estáticos e normais), com
+       efeito de luz/brilho disparado no clique/toque
      ========================================================================== */
   function initMagneticButtons() {
     // Força de atração do corpo do botão (50% mais leve que o padrão)
@@ -595,8 +598,10 @@ $(document).ready(function () {
 
       const zone = btn;
 
-      // no wiggle — simply overwriting x and y.
+      // Movimento magnético ativado APENAS no desktop (> 960px)
       zone.addEventListener("mousemove", (e) => {
+        if (window.innerWidth <= 960) return;
+
         const rect = zone.getBoundingClientRect();
         const x = gsap.utils.mapRange(rect.left, rect.right, -rect.width / 2, rect.width / 2, e.clientX);
         const y = gsap.utils.mapRange(rect.top, rect.bottom, -rect.height / 2, rect.height / 2, e.clientY);
@@ -627,6 +632,8 @@ $(document).ready(function () {
       });
 
       zone.addEventListener("mouseleave", () => {
+        if (window.innerWidth <= 960) return;
+
         // Retorno elástico simultâneo do botão
         gsap.to(btn, {
           x: 0,
@@ -645,7 +652,36 @@ $(document).ready(function () {
           overwrite: true
         });
       });
+
+      // No mobile: feedback luminoso instantâneo no toque (tap/clique)
+      zone.addEventListener("touchstart", () => {
+        zone.classList.add("btn-tap-active");
+      }, { passive: true });
+
+      zone.addEventListener("touchend", () => {
+        setTimeout(() => {
+          zone.classList.remove("btn-tap-active");
+        }, 250);
+      }, { passive: true });
+
+      zone.addEventListener("touchcancel", () => {
+        zone.classList.remove("btn-tap-active");
+      }, { passive: true });
     });
+
+    // Limpa quaisquer transforms residuais se redimensionar ou carregar no mobile
+    const clearOnMobile = () => {
+      if (window.innerWidth <= 960) {
+        buttons.forEach((btn) => {
+          const inner = btn.querySelector('.btn-text');
+          gsap.set(btn, { clearProps: 'transform' });
+          if (inner) gsap.set(inner, { clearProps: 'transform' });
+        });
+      }
+    };
+    window.addEventListener('resize', clearOnMobile, { passive: true });
+    window.addEventListener('orientationchange', clearOnMobile, { passive: true });
+    clearOnMobile();
   }
 
   /* ==========================================================================
@@ -852,16 +888,19 @@ $(document).ready(function () {
 
   /* ==========================================================================
      MÓDULO: GLARE SHEEN ANIMATION NO SIMULADOR-CARD (JQUERY)
-     - Feixe luminoso sutil, suave e leve percorrendo o card
-     - Disparado automaticamente ao exibir a seção do simulador
-     - Repetição cíclica a cada 5 segundos
+     - Feixe luminoso sutil, suave e leve percorrendo o card (apenas desktop > 960px)
+     - No mobile (<= 960px), desativado para economizar recursos e aliviar peso
      ========================================================================== */
   function initCardGlareSheen() {
+    // No mobile (<= 960px), desativa a animação Glare Sheen
+    if (window.innerWidth <= 960) return;
+
     const $sheen = $('#simuladorCardSheen');
     if (!$sheen.length || $sheen.data('sheen-active')) return;
     $sheen.data('sheen-active', true);
 
     function triggerSheen() {
+      if (window.innerWidth <= 960) return;
       $sheen
         .css({ left: '-150%' })
         .stop(true, true)
@@ -1499,11 +1538,57 @@ $(document).ready(function () {
       }
     }, { passive: true });
 
-    window.addEventListener('resize', resize, { passive: true });
+    function isMobile() {
+      return window.innerWidth <= 960;
+    }
+
+    function drawStatic() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.globalCompositeOperation = 'screen';
+
+      for (let i = 0; i < blobs.length; i++) {
+        const b = blobs[i];
+        const safeR = Math.max(10, b.baseR);
+        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, safeR);
+        g.addColorStop(0, b.color);
+        g.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, safeR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    function handleResize() {
+      resize();
+      if (isMobile()) {
+        if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+        drawStatic();
+      } else {
+        if (!animId) {
+          animId = requestAnimationFrame(render);
+        }
+      }
+    }
+
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('orientationchange', handleResize, { passive: true });
     resize();
 
     // Loop de animação contínua (60fps)
     function render() {
+      if (isMobile()) {
+        if (animId) cancelAnimationFrame(animId);
+        animId = null;
+        drawStatic();
+        return;
+      }
       // Interpolação suave do mouse (easing)
       if (mouse.active) {
         mouse.x += (mouse.targetX - mouse.x) * 0.04;
@@ -1574,14 +1659,22 @@ $(document).ready(function () {
 
     // Economia de recursos: pausa quando a página não estiver visível
     document.addEventListener('visibilitychange', function () {
+      if (isMobile()) return;
       if (document.hidden) {
         if (animId) cancelAnimationFrame(animId);
+        animId = null;
       } else {
-        animId = requestAnimationFrame(render);
+        if (!animId) {
+          animId = requestAnimationFrame(render);
+        }
       }
     });
 
-    render();
+    if (isMobile()) {
+      drawStatic();
+    } else {
+      render();
+    }
   }
 
   /* ==========================================================================

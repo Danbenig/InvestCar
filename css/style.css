@@ -1609,25 +1609,155 @@ button {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   .hero-section {
-    padding-top: 170px;
+    height: auto !important;
+    min-height: unset !important;
+    padding-top: 140px;
+    padding-bottom: 50px;
+    overflow: visible;
+  }
+  .hero-content-container {
+    padding-bottom: 10px;
   }
   .hero-title {
-    font-size: 2.2rem;
+    font-size: clamp(2rem, 5.5vw, 2.6rem);
+  }
+  .hero-cta-group {
+    margin-bottom: 24px;
+  }
+  .section-indicadores {
+    padding-top: 40px !important;
+    padding-bottom: 60px !important;
+    position: relative;
+    z-index: 10;
   }
   .cards-row-container {
     grid-template-columns: 1fr;
-    margin-top: -50px;
-    margin-bottom: 50px;
+    margin-top: 0 !important;
+    margin-bottom: 40px;
+    gap: 16px;
   }
   .card-item {
     height: auto;
     min-height: 180px;
+    transform: none !important;
   }
   .metrics-row-container {
     grid-template-columns: 1fr;
     gap: 26px;
+  }
+
+  /* Desativa o efeito Glare Sheen Animation no mobile conforme solicitado */
+  .simulador-card-sheen,
+  .simulador-sheen-mask {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    animation: none !important;
+  }
+
+  /* Desativa puxão magnético nos botões no mobile e adiciona efeito de luz ao clicar/tocar */
+  .btn,
+  .btn-investir-agora,
+  .btn-menu-toggle,
+  .btn-text,
+  [data-magnetic="true"] {
+    transform: none !important;
+  }
+
+  .btn-primary:active,
+  .btn-primary.btn-tap-active,
+  .btn-investir-agora:active,
+  .btn-investir-agora.btn-tap-active {
+    background-color: var(--color-brand-blue-hover) !important;
+    box-shadow: 0 6px 26px rgba(17, 31, 241, 0.7), 0 0 22px rgba(46, 213, 255, 0.5) !important;
+    transition: background-color 0.12s ease, box-shadow 0.12s ease !important;
+  }
+
+  .btn-secondary:active,
+  .btn-secondary.btn-tap-active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(46, 213, 255, 0.6) !important;
+    box-shadow: 0 0 20px rgba(46, 213, 255, 0.45) !important;
+    transition: background-color 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease !important;
+  }
+
+  /* Remove efeito de brilhar dos títulos ao passar o mouse ou tocar no mobile */
+  .hero-glow-text,
+  .hero-glow-text:hover,
+  .hero-glow-text:active,
+  .hero-glow-text:focus {
+    color: #2ed5ff !important;
+    text-shadow: 0 0 12px rgba(46, 213, 255, 0.6) !important;
+    transform: none !important;
+    cursor: default !important;
+    transition: none !important;
+  }
+
+  /* Remove efeitos de toque/hover onde logos ou ícones aumentam ou brilham nos tópicos */
+  .hero-feature-item:hover,
+  .hero-feature-item:active {
+    color: #dbe7f6 !important;
+  }
+  .hero-feature-item:hover .feature-icon,
+  .hero-feature-item:active .feature-icon,
+  .sim-benefit-item:hover .sim-benefit-icon,
+  .sim-benefit-item:active .sim-benefit-icon,
+  .marquee-linear-item:hover .marquee-linear-icon,
+  .marquee-linear-item:active .marquee-linear-icon,
+  .gallery-card-item:hover .gallery-card-icon-wrap,
+  .gallery-card-item:active .gallery-card-icon-wrap,
+  .passo-card-features li:hover .feature-icon,
+  .passo-card-features li:active .feature-icon {
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .gallery-card-item:hover .gallery-card-icon-wrap,
+  .gallery-card-item:active .gallery-card-icon-wrap {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+  }
+  .hero-feature-item:hover .feature-icon,
+  .hero-feature-item:active .feature-icon {
+    color: #79a8e0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding-top: 120px;
+    padding-bottom: 35px;
+  }
+  .hero-title {
+    font-size: 1.85rem;
+  }
+  .hero-description {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  .hero-features-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+  .section-indicadores {
+    padding-top: 30px !important;
+    padding-bottom: 50px !important;
+  }
+  .cards-row-container {
+    margin-top: 0 !important;
+    margin-bottom: 35px;
   }
 }
 
@@ -2722,13 +2852,14 @@ button {
 
 /* Responsividade Mobile e Telas Menores (<= 960px)
    - Desvincula a galeria do scroll de rolamento vertical (SEM pin!)
+   - Sem clip content (overflow: visible) para não cortar sombras ou halo de luz
    - Carrossel horizontal arrastável pro lado com touch/mouse e inércia */
 @media (max-width: 960px) {
   .section-vantagens {
     height: auto;
     min-height: unset;
     padding: 80px 0 60px;
-    overflow: hidden;
+    overflow: visible !important;
   }
   .vantagens-title {
     font-size: clamp(1.8rem, 6vw, 2.5rem);
@@ -2740,7 +2871,7 @@ button {
   }
   .horiz-gallery-wrapper {
     width: 100%;
-    overflow: hidden;
+    overflow: visible !important;
     position: relative;
     touch-action: pan-y;
   }
@@ -2750,8 +2881,8 @@ button {
     gap: 16px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 8px;
-    padding-bottom: 20px;
+    padding-top: 14px;
+    padding-bottom: 26px;
     width: max-content;
     cursor: grab;
     user-select: none;
@@ -3924,18 +4055,20 @@ button {
 
 /* Responsividade Mobile e Telas Menores (<= 960px)
    - Oculta totalmente a coluna lateral de tópicos (.passo-topics-column)
+   - Sem clip content (overflow: visible) para preservar sombras e halo de luz sem corte
    - Transforma os 3 cards em um carrossel horizontal arrastável pro lado com touch/mouse e inércia */
 @media (max-width: 960px) {
   .section-passo-a-passo {
     height: auto;
     min-height: unset;
     padding: 80px 0 60px;
-    overflow: hidden;
+    overflow: visible !important;
   }
   .passo-site-container {
     padding-left: 0 !important;
     padding-right: 0 !important;
     width: 100%;
+    overflow: visible !important;
   }
   .passo-header {
     padding: 0 20px;
@@ -3951,6 +4084,7 @@ button {
   .passo-content-grid {
     display: block;
     width: 100%;
+    overflow: visible !important;
   }
   /* Oculta a coluna de tópicos lateral no mobile conforme solicitado */
   .passo-topics-column {
@@ -3959,7 +4093,7 @@ button {
   /* Coluna de cards vira o container/trilho do carrossel horizontal arrastável */
   .passo-cards-column {
     width: 100%;
-    overflow: hidden;
+    overflow: visible !important;
     position: relative;
     touch-action: pan-y;
   }
@@ -3973,8 +4107,8 @@ button {
     height: auto !important;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 24px;
+    padding-top: 18px;
+    padding-bottom: 30px;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
@@ -3995,6 +4129,37 @@ button {
     opacity: 1 !important;
     visibility: visible !important;
     box-sizing: border-box;
+    transition: none !important;
+  }
+
+  /* Desativa efeitos de toque/hover nos cards de passo-a-passo no mobile */
+  .passo-card-slide,
+  .passo-card-slide:hover,
+  .passo-card-slide:active {
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.65), 0 0 35px rgba(17, 31, 241, 0.2) !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .passo-card-slide:hover::after,
+  .passo-card-slide:active::after {
+    opacity: 0.65 !important;
+    filter: blur(14px) !important;
+    transition: none !important;
+  }
+  .passo-card-num-badge:hover,
+  .passo-card-category:hover,
+  .passo-card-num-badge:active,
+  .passo-card-category:active {
+    transform: none !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.25), 0 0 10px rgba(255, 255, 255, 0.15) !important;
+  }
+  .passo-card-num-badge:hover::after,
+  .passo-card-category:hover::after,
+  .passo-card-num-badge:active::after,
+  .passo-card-category:active::after {
+    opacity: 0.25 !important;
+    filter: blur(8px) !important;
   }
 }
 
